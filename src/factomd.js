@@ -1,9 +1,10 @@
-var rest = require('restler')
+var got = require('got')
 
-var postoptions = {headers: {'content-type': 'text/plain'}, timeout: 2000}
+var postoptions = {body: {}, json:true, headers: {'content-type': 'text/plain'}, retries: 3, timeout: 2000}
 // const URL_BASE = 'https://courtesy-node.factom.com/v2'
 var URL = 'http://courtesy-node.factom.com/v2'
 // var URL = 'http://courtesy-node.factom.com'
+
 
 /**
   * Set the URL of the factom node.  Note: Security measures built into
@@ -33,14 +34,21 @@ function setTimeout (timeout) {
  * @param {Array} jdata
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function dispatch (jdata, cb) {
-  try {
-    // console.log( JSON.stringify(jdata) )
-    rest.postJson(URL, jdata, postoptions).on('complete', cb)
-  } catch (err) {
-    console.log(err)
-  }
+function dispatch (jdata) {
+  var opts = postoptions
+  opts.body = jdata
+  console.log("============++++ ++++============")
+  console.log(jdata) 
+  console.log("============++++ ++++============")
+  return got.post(URL, opts)
+    .then(response => {
+	return response.body
+     })
+    .catch(error => {
+        return error.response.body
+     }) 
 }
+
 
 /**
  * The directory block head is the last known directory block by factom,
@@ -50,14 +58,14 @@ function dispatch (jdata, cb) {
  * @param {String} keymr
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function directoryBlock (id, keymr, cb) {
+function directoryBlock (id, keymr) {
   var jdata = { 'jsonrpc': '2.0',
     'id': id,
     'method': 'directory-block',
     'params': {
       'KeyMR': keymr
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -67,9 +75,9 @@ function directoryBlock (id, keymr, cb) {
  * @param {Number} id  arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function directoryBlockHead (id, cb) {
+function directoryBlockHead (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'directory-block-head'}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -79,9 +87,9 @@ function directoryBlockHead (id, cb) {
  * @param {Number} id  arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function heights (id, cb) {
+function heights (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'heights'}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -92,14 +100,14 @@ function heights (id, cb) {
  * @param {String} hash
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function rawData (id, hash, cb) {
+function rawData (id, hash) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'raw-data',
     'params': {
       'hash': hash
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -109,14 +117,14 @@ function rawData (id, hash, cb) {
  * @param {Number} height height of block requested
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function dblockByHeight (id, height, cb) {
+function dblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'dblock-by-height',
     'params': {
       'height': height
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -126,14 +134,14 @@ function dblockByHeight (id, height, cb) {
  * @param {Number} height height of block requested
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function ablockByHeight (id, height, cb) {
+function ablockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'ablock-by-height',
     'params': {
       'height': height
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -144,14 +152,14 @@ function ablockByHeight (id, height, cb) {
  * @param {Number} height height of block requested
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function ecblockByHeight (id, height, cb) {
+function ecblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'ecblock-by-height',
     'params': {
       'height': height
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -161,14 +169,14 @@ function ecblockByHeight (id, height, cb) {
  * @param {Number} height height of block requested
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function fblockByHeight (id, height, cb) {
+function fblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'fblock-by-height',
     'params': {
       'height': height
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -178,14 +186,14 @@ function fblockByHeight (id, height, cb) {
  * @param {String} KeyMr Merkle root key
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function factoidBlock (id, KeyMr, cb) {
+function factoidBlock (id, KeyMr) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'factoid-block',
     'params': {
       'KeyMr': KeyMr
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -196,14 +204,14 @@ function factoidBlock (id, KeyMr, cb) {
  * @param {String} KeyMr Merkle root key
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function entryCreditBlock (id, KeyMR, cb) {
+function entryCreditBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'entrycredit-block',
     'params': {
       'KeyMR': KeyMR
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -213,14 +221,14 @@ function entryCreditBlock (id, KeyMR, cb) {
  * @param {String} KeyMr Merkle root key
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function adminBlock (id, KeyMR, cb) {
+function adminBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'admin-block',
     'params': {
       'KeyMR': KeyMR
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -231,14 +239,14 @@ function adminBlock (id, KeyMR, cb) {
  * @param {String} KeyMr Merkle root key
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function entryBlock (id, KeyMR, cb) {
+function entryBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'entry-block',
     'params': {
       'KeyMR': KeyMR
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -248,14 +256,14 @@ function entryBlock (id, KeyMR, cb) {
  * @param {String} hash entry hash
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function entry (id, hash, cb) {
+function entry (id, hash) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'entry',
     'params': {
       'Hash': hash
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -265,13 +273,13 @@ function entry (id, hash, cb) {
  * @param {Number} id arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function pendingEntries (id, cb) {
+function pendingEntries (id) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'pending-entries',
     'params': {
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -284,14 +292,14 @@ function pendingEntries (id, cb) {
  * @param {Number} id arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function transaction (id, hash, cb) {
+function transaction (id, hash) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'transaction',
     'params': {
       'hash': hash
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -303,14 +311,14 @@ function transaction (id, hash, cb) {
  * @param {String} chainid chain id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function ack (id, hash, chainid, cb) {
+function ack (id, hash, chainid) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'ack',
     'params': {
       'hash': hash, 'chainid': chainid, 'fulltransaction': ''
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -322,14 +330,14 @@ function ack (id, hash, chainid, cb) {
  * @param {String} hash
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function receipt (id, hash, cb) {
+function receipt (id, hash) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'receipt',
     'params': {
       'hash': hash
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -341,14 +349,14 @@ function receipt (id, hash, cb) {
  * @param {String} Address
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function pendingTransactions (id, Address, cb) {
+function pendingTransactions (id, Address) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'pending-transactions',
     'params': {
       'Address': Address
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -359,14 +367,14 @@ function pendingTransactions (id, Address, cb) {
  * @param {Number} ChainID chain id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function chainHead (id, ChainID, cb) {
+function chainHead (id, ChainID) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'chain-head',
     'params': {
       'ChainID': ChainID
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -376,14 +384,14 @@ function chainHead (id, ChainID, cb) {
  * @param {String} address entry credit address
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function entryCreditBalance (id, address, cb) {
+function entryCreditBalance (id, address) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'entry-credit-balance',
     'params': {
       'address': address
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -394,14 +402,14 @@ function entryCreditBalance (id, address, cb) {
  * @param {String} address factoid address
  * @param {function} cb function(data,response) as specified by the restler AP
  */
-function factoidBalance (id, address, cb) {
+function factoidBalance (id, address) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'factoid-balance',
     'params': {
       'address': address
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -412,9 +420,9 @@ function factoidBalance (id, address, cb) {
  * @param {Number} id arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function entryCreditRate (id, cb) {
+function entryCreditRate (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'entry-credit-rate'}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -424,9 +432,9 @@ function entryCreditRate (id, cb) {
  * @param {Number} id arbitrary reference id
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function properties (id, cb) {
+function properties (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'properties'}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -438,14 +446,14 @@ function properties (id, cb) {
  * @param {String} transaction hex encoded string
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function factoidSubmit (id, transaction, cb) {
+function factoidSubmit (id, transaction) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'factoid-submit',
     'params': {
       'transaction': transaction
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -458,14 +466,14 @@ function factoidSubmit (id, transaction, cb) {
  * @param {String} message hex encoded string
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function commitChain (id, message, cb) {
+function commitChain (id, message) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'commit-chain',
     'params': {
       'message': message
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -478,14 +486,14 @@ function commitChain (id, message, cb) {
  * @param {String} entry reveal chain hex encoded string
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function revealChain (id, entry, cb) {
+function revealChain (id, entry) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'reveal-chain',
     'params': {
       'entry': entry
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -498,14 +506,14 @@ function revealChain (id, entry, cb) {
  * @param {String} message hex encoded string for entry
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function commitEntry (id, message, cb) {
+function commitEntry (id, message) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'commit-entry',
     'params': {
       'message': message
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -518,14 +526,14 @@ function commitEntry (id, message, cb) {
  * @param {String} entry hex encoded string for reveal entry
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function revealEntry (id, entry, cb) {
+function revealEntry (id, entry) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'reveal-entry',
     'params': {
       'entry': entry
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 /**
@@ -537,14 +545,14 @@ function revealEntry (id, entry, cb) {
  * @param {String} message raw hex encoded string
  * @param {function} cb function(data,response) as specified by the restler API
  */
-function sendRawMessage (id, message, cb) {
+function sendRawMessage (id, message) {
   var jdata = {'jsonrpc': '2.0',
     'id': id,
     'method': 'send-raw-message',
     'params': {
       'message': message
     }}
-  dispatch(jdata, cb)
+  return dispatch(jdata)
 }
 
 module.exports = {
