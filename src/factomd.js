@@ -1,10 +1,16 @@
 var got = require('got')
 
-var postoptions = {body: {}, json:true, headers: {'content-type': 'text/plain'}, retries: 3, timeout: 2000}
+var postoptions = {
+  body: {},
+  json: true,
+  headers: {
+    'content-type': 'text/plain'},
+  retries: 3,
+  timeout: 2000
+}
 // const URL_BASE = 'https://courtesy-node.factom.com/v2'
 var URL = 'http://courtesy-node.factom.com/v2'
 // var URL = 'http://courtesy-node.factom.com'
-
 
 /**
   * Set the URL of the factom node.  Note: Security measures built into
@@ -37,18 +43,17 @@ function setTimeout (timeout) {
 function dispatch (jdata) {
   var opts = postoptions
   opts.body = jdata
-  console.log("============++++ ++++============")
-  console.log(jdata) 
-  console.log("============++++ ++++============")
+  console.log('============++++ ++++============')
+  console.log(jdata)
+  console.log('============++++ ++++============')
   return got.post(URL, opts)
     .then(response => {
-	return response.body
-     })
+      return response.body
+    })
     .catch(error => {
-        return error.response.body
-     }) 
+      return error.response.body
+    })
 }
-
 
 /**
  * The directory block head is the last known directory block by factom,
