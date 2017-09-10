@@ -9186,13 +9186,9 @@ var postoptions = {
 // var URL = 'http://courtesy-node.factom.com'
 
 /**
-  * Set the URL of the factom node.  Note: Security measures built into
-  * modern browsers prevent the URL domain to differ from the server
-  * domain without proper Cross-Origin Resource Sharing (CORS) configuration.
-  * Please take note of this:
-  * http://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html
+  * Set the URL of the factom node.
   * @method setFactomNode
-  * @param {Number} timeout Set the timeout in milliseconds
+  * @param {url} url of the factom node
  */
 function setFactomNode(url) {
   URL = url;
@@ -9216,9 +9212,9 @@ function setTimeout(timeout) {
 function dispatch(jdata) {
   var opts = postoptions;
   opts.body = jdata;
-  console.log('============++++ ++++============');
-  console.log(jdata);
-  console.log('============++++ ++++============');
+  // console.log('============++++ ++++============')
+  // console.log(jdata)
+  // console.log('============++++ ++++============')
   return got.post(URL, opts).then(function (response) {
     return response.body;
   }).catch(function (error) {

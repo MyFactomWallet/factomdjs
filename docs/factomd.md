@@ -37,21 +37,17 @@
 
 ## setFactomNode
 
-[src/factomd.js:24-26](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L24-L26 "Source code on GitHub")
+[src/factomd.js:20-22](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L20-L22 "Source code on GitHub")
 
-Set the URL of the factom node.  Note: Security measures built into
-modern browsers prevent the URL domain to differ from the server
-domain without proper Cross-Origin Resource Sharing (CORS) configuration.
-Please take note of this:
-<http://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html>
+Set the URL of the factom node.
 
 **Parameters**
 
--   `timeout` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the timeout in milliseconds
+-   `url` **[url](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)** of the factom node
 
 ## setTimeout
 
-[src/factomd.js:33-35](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L33-L35 "Source code on GitHub")
+[src/factomd.js:29-31](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L29-L31 "Source code on GitHub")
 
 Set the timeout of the JSON request to the factom node
 
@@ -61,7 +57,7 @@ Set the timeout of the JSON request to the factom node
 
 ## dispatch
 
-[src/factomd.js:43-56](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L43-L56 "Source code on GitHub")
+[src/factomd.js:39-52](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L39-L52 "Source code on GitHub")
 
 Utility commands for dispatching JSON commands to the factom server.
 
@@ -72,7 +68,7 @@ Utility commands for dispatching JSON commands to the factom server.
 
 ## directoryBlock
 
-[src/factomd.js:66-74](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L66-L74 "Source code on GitHub")
+[src/factomd.js:62-70](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L62-L70 "Source code on GitHub")
 
 The directory block head is the last known directory block by factom,
 or in other words, the most recently recorded block.
@@ -85,7 +81,7 @@ or in other words, the most recently recorded block.
 
 ## directoryBlockHead
 
-[src/factomd.js:83-86](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L83-L86 "Source code on GitHub")
+[src/factomd.js:79-82](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L79-L82 "Source code on GitHub")
 
 The directory block head is the last known directory block by factom,
 or in other words, the most recently recorded block.
@@ -97,7 +93,7 @@ or in other words, the most recently recorded block.
 
 ## heights
 
-[src/factomd.js:95-98](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L95-L98 "Source code on GitHub")
+[src/factomd.js:91-94](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L91-L94 "Source code on GitHub")
 
 Returns various heights that allows you to view the state of the blockchain.
 <https://docs.factom.com/api#heights>
@@ -109,7 +105,7 @@ Returns various heights that allows you to view the state of the blockchain.
 
 ## rawData
 
-[src/factomd.js:108-116](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L108-L116 "Source code on GitHub")
+[src/factomd.js:104-112](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L104-L112 "Source code on GitHub")
 
 Retrieve an entry or transaction in raw format, the data is a hex encoded string.
 <https://docs.factom.com/api#raw-data>
@@ -122,7 +118,7 @@ Retrieve an entry or transaction in raw format, the data is a hex encoded string
 
 ## dblockByHeight
 
-[src/factomd.js:125-133](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L125-L133 "Source code on GitHub")
+[src/factomd.js:121-129](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L121-L129 "Source code on GitHub")
 
 Retrieve a directory block given only its height.
 
@@ -134,7 +130,7 @@ Retrieve a directory block given only its height.
 
 ## ablockByHeight
 
-[src/factomd.js:142-150](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L142-L150 "Source code on GitHub")
+[src/factomd.js:138-146](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L138-L146 "Source code on GitHub")
 
 Retrieve administrative blocks for any given height.
 
@@ -146,7 +142,7 @@ Retrieve administrative blocks for any given height.
 
 ## ecblockByHeight
 
-[src/factomd.js:160-168](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L160-L168 "Source code on GitHub")
+[src/factomd.js:156-164](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L156-L164 "Source code on GitHub")
 
 Retrieve the entry credit block for any given height.
 These blocks contain entry credit transaction information.
@@ -159,7 +155,7 @@ These blocks contain entry credit transaction information.
 
 ## fblockByHeight
 
-[src/factomd.js:177-185](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L177-L185 "Source code on GitHub")
+[src/factomd.js:173-181](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L173-L181 "Source code on GitHub")
 
 Retrieve the factoid block for any given height.
 These blocks contain factoid arbitrary information.
@@ -172,7 +168,7 @@ These blocks contain factoid arbitrary information.
 
 ## factoidBlock
 
-[src/factomd.js:194-202](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L194-L202 "Source code on GitHub")
+[src/factomd.js:190-198](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L190-L198 "Source code on GitHub")
 
 Retrieve a specified factoid block given its merkle root key.
 
@@ -184,7 +180,7 @@ Retrieve a specified factoid block given its merkle root key.
 
 ## entryCreditBlock
 
-[src/factomd.js:212-220](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L212-L220 "Source code on GitHub")
+[src/factomd.js:208-216](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L208-L216 "Source code on GitHub")
 
 Retrieve a specified entrycredit block given its merkle root key.
 The numbers are minute markers.
@@ -197,7 +193,7 @@ The numbers are minute markers.
 
 ## adminBlock
 
-[src/factomd.js:229-237](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L229-L237 "Source code on GitHub")
+[src/factomd.js:225-233](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L225-L233 "Source code on GitHub")
 
 Retrieve a specified admin block given its merkle root key.
 
@@ -209,7 +205,7 @@ Retrieve a specified admin block given its merkle root key.
 
 ## entryBlock
 
-[src/factomd.js:247-255](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L247-L255 "Source code on GitHub")
+[src/factomd.js:243-251](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L243-L251 "Source code on GitHub")
 
 Retrieve a specified entry block given its merkle root key.
 The entry block contains 0 to many entries
@@ -222,7 +218,7 @@ The entry block contains 0 to many entries
 
 ## entry
 
-[src/factomd.js:264-272](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L264-L272 "Source code on GitHub")
+[src/factomd.js:260-268](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L260-L268 "Source code on GitHub")
 
 Get an Entry from factomd specified by the Entry Hash.
 
@@ -234,7 +230,7 @@ Get an Entry from factomd specified by the Entry Hash.
 
 ## pendingEntries
 
-[src/factomd.js:281-288](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L281-L288 "Source code on GitHub")
+[src/factomd.js:277-284](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L277-L284 "Source code on GitHub")
 
 Returns an array of the entries that have been submitted
 but have not been recoreded into the blockchain.
@@ -246,7 +242,7 @@ but have not been recoreded into the blockchain.
 
 ## transaction
 
-[src/factomd.js:300-308](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L300-L308 "Source code on GitHub")
+[src/factomd.js:296-304](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L296-L304 "Source code on GitHub")
 
 Retrieve details of a factoid arbitrary using a transactions hash.
 Note that information regarding the directory block height,
@@ -261,7 +257,7 @@ this call, refer to “includedindirectoryblockheight” if you need the height.
 
 ## ack
 
-[src/factomd.js:319-327](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L319-L327 "Source code on GitHub")
+[src/factomd.js:315-323](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L315-L323 "Source code on GitHub")
 
 Find the status of a transaction, whether it be a factoid,
 reveal entry, or commit entry.
@@ -275,7 +271,7 @@ reveal entry, or commit entry.
 
 ## receipt
 
-[src/factomd.js:338-346](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L338-L346 "Source code on GitHub")
+[src/factomd.js:334-342](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L334-L342 "Source code on GitHub")
 
 Retrieve a reciept providing cryptographially verfiable proof that information
 was recorded in the factom blockchain and that this was subsequently
@@ -289,7 +285,7 @@ anchored in the bitcoin blockchain.
 
 ## pendingTransactions
 
-[src/factomd.js:357-365](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L357-L365 "Source code on GitHub")
+[src/factomd.js:353-361](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L353-L361 "Source code on GitHub")
 
 Retrieve a reciept providing cryptographially verfiable proof that information
 was recorded in the factom blockchain and that this was subsequently
@@ -303,7 +299,7 @@ anchored in the bitcoin blockchain.
 
 ## chainHead
 
-[src/factomd.js:375-383](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L375-L383 "Source code on GitHub")
+[src/factomd.js:371-379](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L371-L379 "Source code on GitHub")
 
 Return the keymr of the head of the chain for a chain ID
 (the unique hash created when the chain was created).
@@ -316,7 +312,7 @@ Return the keymr of the head of the chain for a chain ID
 
 ## entryCreditBalance
 
-[src/factomd.js:392-400](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L392-L400 "Source code on GitHub")
+[src/factomd.js:388-396](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L388-L396 "Source code on GitHub")
 
 Return its current balance for a specific entry credit address.
 
@@ -328,7 +324,7 @@ Return its current balance for a specific entry credit address.
 
 ## factoidBalance
 
-[src/factomd.js:410-418](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L410-L418 "Source code on GitHub")
+[src/factomd.js:406-414](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L406-L414 "Source code on GitHub")
 
 This call returns the number of Factoshis (Factoids \*10^-8) that are currently
 available at the address specified.
@@ -341,7 +337,7 @@ available at the address specified.
 
 ## entryCreditRate
 
-[src/factomd.js:428-431](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L428-L431 "Source code on GitHub")
+[src/factomd.js:424-427](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L424-L427 "Source code on GitHub")
 
 Returns the number of Factoshis (Factoids \*10^-8) that purchase a single
 Entry Credit. The minimum factoid fees are also determined by this rate,
@@ -354,7 +350,7 @@ along with how complex the factoid arbitrary is.
 
 ## properties
 
-[src/factomd.js:440-443](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L440-L443 "Source code on GitHub")
+[src/factomd.js:436-439](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L436-L439 "Source code on GitHub")
 
 Retrieve current properties of the Factom system,
 including the software and the API versions.
@@ -366,7 +362,7 @@ including the software and the API versions.
 
 ## factoidSubmit
 
-[src/factomd.js:454-462](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L454-L462 "Source code on GitHub")
+[src/factomd.js:450-458](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L450-L458 "Source code on GitHub")
 
 Submit a factoid arbitrary with hex encoded string documented here:
 <https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#factoid-transaction>
@@ -380,7 +376,7 @@ A factoid-submit api call can be composed with factom_walletd.compose-transactio
 
 ## commit_chain
 
-[src/factomd.js:474-482](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L474-L482 "Source code on GitHub")
+[src/factomd.js:470-478](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L470-L478 "Source code on GitHub")
 
 Send a Chain Commit Message to factomd to create a new Chain
 The commit chain hex encoded string is documented here:
@@ -395,7 +391,7 @@ The commit chain hex encoded string is documented here:
 
 ## revealChain
 
-[src/factomd.js:494-502](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L494-L502 "Source code on GitHub")
+[src/factomd.js:490-498](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L490-L498 "Source code on GitHub")
 
 Reveal the First Entry in a Chain to factomd after the Commit to compleate
 the Chain creation. The reveal chain hex encoded string is documented here:
@@ -410,7 +406,7 @@ the Chain creation. The reveal chain hex encoded string is documented here:
 
 ## commitEntry
 
-[src/factomd.js:514-522](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L514-L522 "Source code on GitHub")
+[src/factomd.js:510-518](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L510-L518 "Source code on GitHub")
 
 Send an Entry Commit Message to factom to create a new Entry. The entry commit
 hex encoded string is documented here:
@@ -425,7 +421,7 @@ hex encoded string is documented here:
 
 ## revealEntry
 
-[src/factomd.js:534-542](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L534-L542 "Source code on GitHub")
+[src/factomd.js:530-538](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L530-L538 "Source code on GitHub")
 
 Reveal an Entry to factomd after the Commit to compleate the Entry creation.
 The reveal entry hex encoded string is documented here:
@@ -440,7 +436,7 @@ The reveal entry hex encoded string is documented here:
 
 ## sendRawMessage
 
-[src/factomd.js:553-561](https://github.com/MyFactomWallet/factomdjs/blob/980e8efe7bab45e1484f13115c8d71c10f324d33/src/factomd.js#L553-L561 "Source code on GitHub")
+[src/factomd.js:549-557](https://github.com/MyFactomWallet/factomdjs/blob/0bac76d09b2814e744c49bce38c1938bbd6a6381/src/factomd.js#L549-L557 "Source code on GitHub")
 
 Send a raw hex encoded binary message to the Factom network.
 This is mostly just for debugging and testing.
