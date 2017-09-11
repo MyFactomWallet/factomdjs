@@ -34,7 +34,7 @@ function setTimeout (timeout) {
  * Utility commands for dispatching JSON commands to the factom server.
  * @method dispatch
  * @param {Array} jdata
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function dispatch (jdata) {
   var opts = postoptions
@@ -57,7 +57,7 @@ function dispatch (jdata) {
  * @method directoryBlock
  * @param {Number} id Arbitrary reference id
  * @param {String} keymr
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function directoryBlock (id, keymr) {
   var jdata = { 'jsonrpc': '2.0',
@@ -74,7 +74,7 @@ function directoryBlock (id, keymr) {
  * or in other words, the most recently recorded block.
  * @method directoryBlockHead
  * @param {Number} id  arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function directoryBlockHead (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'directory-block-head'}
@@ -86,7 +86,7 @@ function directoryBlockHead (id) {
  * https://docs.factom.com/api#heights
  * @method heights
  * @param {Number} id  arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function heights (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'heights'}
@@ -99,7 +99,7 @@ function heights (id) {
  * @method rawData
  * @param {Number} id arbitrary reference id
  * @param {String} hash
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function rawData (id, hash) {
   var jdata = {'jsonrpc': '2.0',
@@ -116,7 +116,7 @@ function rawData (id, hash) {
  * @method dblockByHeight
  * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function dblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
@@ -133,7 +133,7 @@ function dblockByHeight (id, height) {
  * @method ablockByHeight
  * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function ablockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
@@ -151,7 +151,7 @@ function ablockByHeight (id, height) {
  * @method ecblockByHeight
  * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function ecblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
@@ -168,7 +168,7 @@ function ecblockByHeight (id, height) {
  * These blocks contain factoid arbitrary information.
  * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function fblockByHeight (id, height) {
   var jdata = {'jsonrpc': '2.0',
@@ -185,7 +185,7 @@ function fblockByHeight (id, height) {
  * @method factoidBlock
  * @param {Number} id arbitrary reference id
  * @param {String} KeyMr Merkle root key
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function factoidBlock (id, KeyMr) {
   var jdata = {'jsonrpc': '2.0',
@@ -203,7 +203,7 @@ function factoidBlock (id, KeyMr) {
  * @method entryCreditBlock
  * @param {Number} id arbitrary reference id
  * @param {String} KeyMr Merkle root key
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function entryCreditBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
@@ -220,7 +220,7 @@ function entryCreditBlock (id, KeyMR) {
  * @method adminBlock
  * @param {Number} id arbitrary reference id
  * @param {String} KeyMr Merkle root key
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function adminBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
@@ -238,7 +238,7 @@ function adminBlock (id, KeyMR) {
  * @method entryBlock
  * @param {Number} id arbitrary reference id
  * @param {String} KeyMr Merkle root key
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function entryBlock (id, KeyMR) {
   var jdata = {'jsonrpc': '2.0',
@@ -255,7 +255,7 @@ function entryBlock (id, KeyMR) {
  * @method entry
  * @param {Number} id arbitrary reference id
  * @param {String} hash entry hash
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function entry (id, hash) {
   var jdata = {'jsonrpc': '2.0',
@@ -272,7 +272,7 @@ function entry (id, hash) {
  * but have not been recoreded into the blockchain.
  * @method pendingEntries
  * @param {Number} id arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function pendingEntries (id) {
   var jdata = {'jsonrpc': '2.0',
@@ -291,7 +291,7 @@ function pendingEntries (id) {
  * this call, refer to “includedindirectoryblockheight” if you need the height.
  * @method transaction
  * @param {Number} id arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function transaction (id, hash) {
   var jdata = {'jsonrpc': '2.0',
@@ -310,7 +310,7 @@ function transaction (id, hash) {
  * @param {Number} id arbitrary reference id
  * @param {String} hash entry hash
  * @param {String} chainid chain id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function ack (id, hash, chainid) {
   var jdata = {'jsonrpc': '2.0',
@@ -329,7 +329,7 @@ function ack (id, hash, chainid) {
  * @method receipt
  * @param {Number} id arbitrary reference id
  * @param {String} hash
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function receipt (id, hash) {
   var jdata = {'jsonrpc': '2.0',
@@ -348,7 +348,7 @@ function receipt (id, hash) {
  * @method pendingTransactions
  * @param {Number} id arbitrary reference id
  * @param {String} Address
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function pendingTransactions (id, Address) {
   var jdata = {'jsonrpc': '2.0',
@@ -366,7 +366,7 @@ function pendingTransactions (id, Address) {
  * @method chainHead
  * @param {Number} id arbitrary reference id
  * @param {Number} ChainID chain id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function chainHead (id, ChainID) {
   var jdata = {'jsonrpc': '2.0',
@@ -383,7 +383,7 @@ function chainHead (id, ChainID) {
  * @method entryCreditBalance
  * @param {Number} id arbitrary reference id
  * @param {String} address entry credit address
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function entryCreditBalance (id, address) {
   var jdata = {'jsonrpc': '2.0',
@@ -401,7 +401,7 @@ function entryCreditBalance (id, address) {
  * @method factoidBalance
  * @param {Number} id arbitrary reference id
  * @param {String} address factoid address
- * @param {function} cb function(data,response) as specified by the restler AP
+ *
  */
 function factoidBalance (id, address) {
   var jdata = {'jsonrpc': '2.0',
@@ -419,7 +419,7 @@ function factoidBalance (id, address) {
  * along with how complex the factoid arbitrary is.
  * @method entryCreditRate
  * @param {Number} id arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function entryCreditRate (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'entry-credit-rate'}
@@ -431,7 +431,7 @@ function entryCreditRate (id) {
  * including the software and the API versions.
  * @method properties
  * @param {Number} id arbitrary reference id
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function properties (id) {
   var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'properties'}
@@ -445,7 +445,7 @@ function properties (id) {
  * @method factoidSubmit
  * @param {Number} id arbitrary reference id
  * @param {String} transaction hex encoded string
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function factoidSubmit (id, transaction) {
   var jdata = {'jsonrpc': '2.0',
@@ -465,7 +465,7 @@ function factoidSubmit (id, transaction) {
  * @method commit_chain
  * @param {Number} id arbitrary reference id
  * @param {String} message hex encoded string
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function commitChain (id, message) {
   var jdata = {'jsonrpc': '2.0',
@@ -485,7 +485,7 @@ function commitChain (id, message) {
  * @method revealChain
  * @param {Number} id arbitrary reference id
  * @param {String} entry reveal chain hex encoded string
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function revealChain (id, entry) {
   var jdata = {'jsonrpc': '2.0',
@@ -505,7 +505,7 @@ function revealChain (id, entry) {
  * @method commitEntry
  * @param {Number} id arbitrary reference id
  * @param {String} message hex encoded string for entry
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function commitEntry (id, message) {
   var jdata = {'jsonrpc': '2.0',
@@ -525,7 +525,7 @@ function commitEntry (id, message) {
  * @method revealEntry
  * @param {Number} id arbitrary reference id
  * @param {String} entry hex encoded string for reveal entry
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function revealEntry (id, entry) {
   var jdata = {'jsonrpc': '2.0',
@@ -544,7 +544,7 @@ function revealEntry (id, entry) {
  * @method sendRawMessage
  * @param {Number} id arbitrary reference id
  * @param {String} message raw hex encoded string
- * @param {function} cb function(data,response) as specified by the restler API
+ *
  */
 function sendRawMessage (id, message) {
   var jdata = {'jsonrpc': '2.0',
