@@ -1,6 +1,6 @@
 {
-  "_from": "factomdjs@^0.1.2",
-  "_id": "factomdjs@0.2.3",
+  "_from": "factomdjs@^0.2.3",
+  "_id": "factomdjs@0.2.4",
   "_inBundle": false,
   "_integrity": "sha512-RSE776a4oE5Q4xRtLeeOzeRJeaWUl/54/9PhkewiiZSF/EN6utaIXokrvTISmLdNhUogmCAZiaSRGWKHCFjtMA==",
   "_location": "/factomdjs",
@@ -8,20 +8,20 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "factomdjs@^0.2.3",
+    "raw": "factomdjs@^0.2.4",
     "name": "factomdjs",
     "escapedName": "factomdjs",
-    "rawSpec": "^0.2.3",
+    "rawSpec": "^0.2.4",
     "saveSpec": null,
-    "fetchSpec": "^0.2.3"
+    "fetchSpec": "^0.2.4"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.2.3.tgz",
+  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.2.4.tgz",
   "_shasum": "13c77efd312a036951a53b388f763324fc648a95",
-  "_spec": "factomdjs@^0.2.3",
-  "_where": "/proj/MFW/MyFactomWallet",
+  "_spec": "factomdjs@^0.2.4",
+  "_where": "/proj/MFW/factomd",
   "author": {
     "name": "bunfield",
     "email": "dbunfield@cybitron.com"
@@ -54,14 +54,9 @@
     }
   ],
   "dependencies": {
-    "acorn": "^5.1.2",
-    "asyncawait": "^1.0.6",
     "babel-preset-es2015-node5": "^1.1.0",
-    "bn.js": "^4.8.0",
-    "electron": "^1.7.6",
-    "got": "^7.1.0",
-    "miller-rabin": "^4.0.0",
-    "safe-buffer": "^5.1.1"
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
   },
   "deprecated": false,
   "description": "JavaScript implementation of the Factomd API v2.0",
@@ -104,7 +99,7 @@
   },
   "babel": {
     "presets": [
-      "es2015-node5"
+      "es2015-node"
     ]
   },
   "scripts": {
@@ -127,5 +122,5 @@
       "it"
     ]
   },
-  "version": "0.2.3"
+  "version": "0.2.4"
 }
