@@ -1,4 +1,4 @@
-var got = require('got')
+var got = require('request-promise-native')
 
 var postoptions = {
   body: {},
@@ -8,9 +8,9 @@ var postoptions = {
   retries: 3,
   timeout: 2000
 }
-// const URL_BASE = 'https://courtesy-node.factom.com/v2'
+
 var URL = 'http://courtesy-node.factom.com/v2'
-// var URL = 'http://courtesy-node.factom.com'
+// var URL = 'https://courtesy-node.factom.com/v2'
 
 /**
   * Set the URL of the factom node.
@@ -44,10 +44,10 @@ function dispatch (jdata) {
   // console.log('============++++ ++++============')
   return got.post(URL, opts)
     .then(response => {
-      return response.body
+      return response
     })
     .catch(error => {
-      return error.response.body
+      return error
     })
 }
 
