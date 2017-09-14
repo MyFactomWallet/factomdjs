@@ -1,7 +1,5 @@
 var assert = require('assert')
 var factomd = require('../src/factomd.js')
-var BN = require('bn.js')
-const Buffer = require('safe-buffer').Buffer
 
 // todo: implement a server helper to simulate factom node for testing
 factomd.setFactomNode('http://127.0.0.1:8088/v2')
