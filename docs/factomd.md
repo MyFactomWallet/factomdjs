@@ -37,174 +37,174 @@
 
 ## setFactomNode
 
-[src/factomd.js:29-31](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L29-L31 "Source code on GitHub")
+[src/factomd.js:29-31](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L29-L31 "Source code on GitHub")
 
 Set the URL of the factom node.
 
 **Parameters**
 
--   `url` **[url](https://developer.mozilla.org/docs/Web/API/URL/URL)** of the factom node
+-   `url` **[url](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)** of the factom node
 
 ## setTimeout
 
-[src/factomd.js:38-40](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L38-L40 "Source code on GitHub")
+[src/factomd.js:38-40](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L38-L40 "Source code on GitHub")
 
 Set the timeout of the JSON request to the factom node
 
 **Parameters**
 
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the timeout in milliseconds
+-   `timeout` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the timeout in milliseconds
 
 ## dispatch
 
-[src/factomd.js:48-53](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L48-L53 "Source code on GitHub")
+[src/factomd.js:48-53](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L48-L53 "Source code on GitHub")
 
 Utility commands for dispatching JSON commands to the factom server.
 
 **Parameters**
 
--   `jdata` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `jdata` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
 
 ## directoryBlock
 
-[src/factomd.js:62-70](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L62-L70 "Source code on GitHub")
+[src/factomd.js:62-70](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L62-L70 "Source code on GitHub")
 
 The directory block head is the last known directory block by factom,
 or in other words, the most recently recorded block.
 
 **Parameters**
 
--   `keymr` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `keymr` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## directoryBlockHead
 
-[src/factomd.js:78-81](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L78-L81 "Source code on GitHub")
+[src/factomd.js:78-81](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L78-L81 "Source code on GitHub")
 
 The directory block head is the last known directory block by factom,
 or in other words, the most recently recorded block.
 
 ## heights
 
-[src/factomd.js:89-92](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L89-L92 "Source code on GitHub")
+[src/factomd.js:89-92](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L89-L92 "Source code on GitHub")
 
 Returns various heights that allows you to view the state of the blockchain.
 <https://docs.factom.com/api#heights>
 
 ## rawData
 
-[src/factomd.js:101-109](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L101-L109 "Source code on GitHub")
+[src/factomd.js:101-109](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L101-L109 "Source code on GitHub")
 
 Retrieve an entry or transaction in raw format, the data is a hex encoded string.
 <https://docs.factom.com/api#raw-data>
 
 **Parameters**
 
--   `hash` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `hash` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## dblockByHeight
 
-[src/factomd.js:117-125](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L117-L125 "Source code on GitHub")
+[src/factomd.js:117-125](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L117-L125 "Source code on GitHub")
 
 Retrieve a directory block given only its height.
 
 **Parameters**
 
--   `height` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
+-   `height` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
 
 ## ablockByHeight
 
-[src/factomd.js:133-141](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L133-L141 "Source code on GitHub")
+[src/factomd.js:133-141](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L133-L141 "Source code on GitHub")
 
 Retrieve administrative blocks for any given height.
 
 **Parameters**
 
--   `height` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
+-   `height` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
 
 ## ecblockByHeight
 
-[src/factomd.js:150-158](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L150-L158 "Source code on GitHub")
+[src/factomd.js:150-158](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L150-L158 "Source code on GitHub")
 
 Retrieve the entry credit block for any given height.
 These blocks contain entry credit transaction information.
 
 **Parameters**
 
--   `height` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
+-   `height` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
 
 ## fblockByHeight
 
-[src/factomd.js:166-174](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L166-L174 "Source code on GitHub")
+[src/factomd.js:166-174](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L166-L174 "Source code on GitHub")
 
 Retrieve the factoid block for any given height.
 These blocks contain factoid arbitrary information.
 
 **Parameters**
 
--   `height` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
+-   `height` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of block requested
 
 ## factoidBlock
 
-[src/factomd.js:182-190](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L182-L190 "Source code on GitHub")
+[src/factomd.js:182-190](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L182-L190 "Source code on GitHub")
 
 Retrieve a specified factoid block given its merkle root key.
 
 **Parameters**
 
--   `keyMr` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
+-   `keyMr` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
 
 ## entryCreditBlock
 
-[src/factomd.js:199-207](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L199-L207 "Source code on GitHub")
+[src/factomd.js:199-207](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L199-L207 "Source code on GitHub")
 
 Retrieve a specified entrycredit block given its merkle root key.
 The numbers are minute markers.
 
 **Parameters**
 
--   `keyMr` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
+-   `keyMr` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
 
 ## adminBlock
 
-[src/factomd.js:215-223](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L215-L223 "Source code on GitHub")
+[src/factomd.js:215-223](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L215-L223 "Source code on GitHub")
 
 Retrieve a specified admin block given its merkle root key.
 
 **Parameters**
 
--   `keyMr` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
+-   `keyMr` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
 
 ## entryBlock
 
-[src/factomd.js:232-240](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L232-L240 "Source code on GitHub")
+[src/factomd.js:232-240](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L232-L240 "Source code on GitHub")
 
 Retrieve a specified entry block given its merkle root key.
 The entry block contains 0 to many entries
 
 **Parameters**
 
--   `keyMr` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
+-   `keyMr` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Merkle root key
 
 ## entry
 
-[src/factomd.js:248-256](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L248-L256 "Source code on GitHub")
+[src/factomd.js:248-256](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L248-L256 "Source code on GitHub")
 
 Get an Entry from factomd specified by the Entry Hash.
 
 **Parameters**
 
--   `hash` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** entry hash
+-   `hash` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** entry hash
 
 ## pendingEntries
 
-[src/factomd.js:264-271](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L264-L271 "Source code on GitHub")
+[src/factomd.js:264-271](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L264-L271 "Source code on GitHub")
 
 Returns an array of the entries that have been submitted
 but have not been recoreded into the blockchain.
 
 ## transaction
 
-[src/factomd.js:282-290](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L282-L290 "Source code on GitHub")
+[src/factomd.js:282-290](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L282-L290 "Source code on GitHub")
 
 Retrieve details of a factoid arbitrary using a transactions hash.
 Note that information regarding the directory block height,
@@ -214,19 +214,19 @@ this call, refer to “includedindirectoryblockheight” if you need the height.
 
 ## ack
 
-[src/factomd.js:300-308](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L300-L308 "Source code on GitHub")
+[src/factomd.js:300-308](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L300-L308 "Source code on GitHub")
 
 Find the status of a transaction, whether it be a factoid,
 reveal entry, or commit entry.
 
 **Parameters**
 
--   `hash` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** entry hash
--   `chainid` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** chain id
+-   `hash` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** entry hash
+-   `chainid` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** chain id
 
 ## receipt
 
-[src/factomd.js:318-326](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L318-L326 "Source code on GitHub")
+[src/factomd.js:318-326](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L318-L326 "Source code on GitHub")
 
 Retrieve a reciept providing cryptographially verfiable proof that information
 was recorded in the factom blockchain and that this was subsequently
@@ -234,11 +234,11 @@ anchored in the bitcoin blockchain.
 
 **Parameters**
 
--   `hash` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `hash` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## pendingTransactions
 
-[src/factomd.js:336-344](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L336-L344 "Source code on GitHub")
+[src/factomd.js:336-344](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L336-L344 "Source code on GitHub")
 
 Retrieve a reciept providing cryptographially verfiable proof that information
 was recorded in the factom blockchain and that this was subsequently
@@ -246,43 +246,43 @@ anchored in the bitcoin blockchain.
 
 **Parameters**
 
--   `Address` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `address` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## chainHead
 
-[src/factomd.js:353-361](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L353-L361 "Source code on GitHub")
+[src/factomd.js:353-361](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L353-L361 "Source code on GitHub")
 
 Return the keymr of the head of the chain for a chain ID
 (the unique hash created when the chain was created).
 
 **Parameters**
 
--   `chainID` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** chain id
+-   `chainID` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** chain id
 
 ## entryCreditBalance
 
-[src/factomd.js:369-377](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L369-L377 "Source code on GitHub")
+[src/factomd.js:369-377](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L369-L377 "Source code on GitHub")
 
 Return its current balance for a specific entry credit address.
 
 **Parameters**
 
--   `address` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** entry credit address
+-   `address` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** entry credit address
 
 ## factoidBalance
 
-[src/factomd.js:386-394](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L386-L394 "Source code on GitHub")
+[src/factomd.js:386-394](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L386-L394 "Source code on GitHub")
 
 This call returns the number of Factoshis (Factoids \*10^-8) that are currently
 available at the address specified.
 
 **Parameters**
 
--   `address` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** factoid address
+-   `address` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** factoid address
 
 ## entryCreditRate
 
-[src/factomd.js:403-406](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L403-L406 "Source code on GitHub")
+[src/factomd.js:403-406](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L403-L406 "Source code on GitHub")
 
 Returns the number of Factoshis (Factoids \*10^-8) that purchase a single
 Entry Credit. The minimum factoid fees are also determined by this rate,
@@ -290,14 +290,14 @@ along with how complex the factoid arbitrary is.
 
 ## properties
 
-[src/factomd.js:414-417](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L414-L417 "Source code on GitHub")
+[src/factomd.js:414-417](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L414-L417 "Source code on GitHub")
 
 Retrieve current properties of the Factom system,
 including the software and the API versions.
 
 ## factoidSubmit
 
-[src/factomd.js:427-435](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L427-L435 "Source code on GitHub")
+[src/factomd.js:427-435](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L427-L435 "Source code on GitHub")
 
 Submit a factoid arbitrary with hex encoded string documented here:
 <https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#factoid-transaction>
@@ -305,11 +305,11 @@ A factoid-submit api call can be composed with factom_walletd.compose-transactio
 
 **Parameters**
 
--   `transaction` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string
+-   `transaction` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string
 
 ## commit_chain
 
-[src/factomd.js:446-454](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L446-L454 "Source code on GitHub")
+[src/factomd.js:446-454](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L446-L454 "Source code on GitHub")
 
 Send a Chain Commit Message to factomd to create a new Chain
 The commit chain hex encoded string is documented here:
@@ -318,11 +318,11 @@ The commit chain hex encoded string is documented here:
 
 **Parameters**
 
--   `message` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string
+-   `message` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string
 
 ## revealChain
 
-[src/factomd.js:465-473](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L465-L473 "Source code on GitHub")
+[src/factomd.js:465-473](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L465-L473 "Source code on GitHub")
 
 Reveal the First Entry in a Chain to factomd after the Commit to compleate
 the Chain creation. The reveal chain hex encoded string is documented here:
@@ -331,11 +331,11 @@ the Chain creation. The reveal chain hex encoded string is documented here:
 
 **Parameters**
 
--   `entry` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reveal chain hex encoded string
+-   `entry` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** reveal chain hex encoded string
 
 ## commitEntry
 
-[src/factomd.js:484-492](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L484-L492 "Source code on GitHub")
+[src/factomd.js:484-492](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L484-L492 "Source code on GitHub")
 
 Send an Entry Commit Message to factom to create a new Entry. The entry commit
 hex encoded string is documented here:
@@ -344,11 +344,11 @@ hex encoded string is documented here:
 
 **Parameters**
 
--   `message` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string for entry
+-   `message` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string for entry
 
 ## revealEntry
 
-[src/factomd.js:503-511](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L503-L511 "Source code on GitHub")
+[src/factomd.js:503-511](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L503-L511 "Source code on GitHub")
 
 Reveal an Entry to factomd after the Commit to compleate the Entry creation.
 The reveal entry hex encoded string is documented here:
@@ -357,11 +357,11 @@ The reveal entry hex encoded string is documented here:
 
 **Parameters**
 
--   `entry` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string for reveal entry
+-   `entry` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** hex encoded string for reveal entry
 
 ## sendRawMessage
 
-[src/factomd.js:521-529](https://github.com/PaulBernier/factomdjs/blob/3b4762f51ac18f28db24453a07f12f7933ec29b2/src/factomd.js#L521-L529 "Source code on GitHub")
+[src/factomd.js:521-529](https://github.com/MyFactomWallet/factomdjs/blob/137845d277854ef8377921ee8fc3fbe6c7b98114/src/factomd.js#L521-L529 "Source code on GitHub")
 
 Send a raw hex encoded binary message to the Factom network.
 This is mostly just for debugging and testing.
@@ -369,4 +369,4 @@ This is mostly just for debugging and testing.
 
 **Parameters**
 
--   `message` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** raw hex encoded string
+-   `message` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** raw hex encoded string
