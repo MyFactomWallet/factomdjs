@@ -17,8 +17,7 @@ const factomdjs = require('factomdjs');
 // factomdjs.setFactomNode('http://localhost:8088/v2');
 
 // Example to retrieve the content of an entry
-factomdjs.entry(0, 'ce3df00a20b6aaaf14f8ff0a2c3efa854160245cf17ce9d36a8ff03090a1135e')
-    .then(res => res.result)
+factomdjs.entry('ce3df00a20b6aaaf14f8ff0a2c3efa854160245cf17ce9d36a8ff03090a1135e')
     .then(res => Buffer.from(res.content, 'hex').toString('utf8'))
     .then(console.log);
 ```
