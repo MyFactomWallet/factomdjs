@@ -44,21 +44,21 @@
   "bundleDependencies": false,
   "contributors": [
     {
-      "name": "Paul Bernier",
-      "email": null,
-      "url": "https://github.com/PaulBernier",
-      "contributions": 2,
-      "additions": 53,
-      "deletions": 33,
-      "hireable": null
-    },
-    {
       "name": null,
       "email": null,
       "url": "https://github.com/bunfield",
       "contributions": 1,
       "additions": 2,
       "deletions": 0,
+      "hireable": null
+    },
+    {
+      "name": "Paul Bernier",
+      "email": null,
+      "url": "https://github.com/PaulBernier",
+      "contributions": 2,
+      "additions": 53,
+      "deletions": 33,
       "hireable": null
     }
   ],

@@ -10,7 +10,16 @@ var postoptions = {
 }
 
 var URL = 'http://courtesy-node.factom.com/v2'
-// var URL = 'https://courtesy-node.factom.com/v2'
+
+function newCounter () {
+  let i = 0
+  return function () {
+    i++
+    return i
+  }
+}
+
+const APICounter = newCounter()
 
 /**
   * Set the URL of the factom node.
@@ -40,19 +49,19 @@ function dispatch (jdata) {
   var opts = postoptions
   opts.body = jdata
   return got.post(URL, opts)
+        .then(response => response.result)
 }
 
 /**
  * The directory block head is the last known directory block by factom,
  * or in other words, the most recently recorded block.
  * @method directoryBlock
- * @param {Number} id Arbitrary reference id
  * @param {String} keymr
  *
  */
-function directoryBlock (id, keymr) {
+function directoryBlock (keymr) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'directory-block',
     'params': {
       'KeyMR': keymr
@@ -64,11 +73,10 @@ function directoryBlock (id, keymr) {
  * The directory block head is the last known directory block by factom,
  * or in other words, the most recently recorded block.
  * @method directoryBlockHead
- * @param {Number} id  arbitrary reference id
  *
  */
-function directoryBlockHead (id) {
-  var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'directory-block-head'}
+function directoryBlockHead () {
+  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'directory-block-head'}
   return dispatch(jdata)
 }
 
@@ -76,11 +84,10 @@ function directoryBlockHead (id) {
  * Returns various heights that allows you to view the state of the blockchain.
  * https://docs.factom.com/api#heights
  * @method heights
- * @param {Number} id  arbitrary reference id
  *
  */
-function heights (id) {
-  var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'heights'}
+function heights () {
+  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'heights'}
   return dispatch(jdata)
 }
 
@@ -88,13 +95,12 @@ function heights (id) {
  * Retrieve an entry or transaction in raw format, the data is a hex encoded string.
  * https://docs.factom.com/api#raw-data
  * @method rawData
- * @param {Number} id arbitrary reference id
  * @param {String} hash
  *
  */
-function rawData (id, hash) {
+function rawData (hash) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'raw-data',
     'params': {
       'hash': hash
@@ -105,13 +111,12 @@ function rawData (id, hash) {
 /**
  * Retrieve a directory block given only its height.
  * @method dblockByHeight
- * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
  *
  */
-function dblockByHeight (id, height) {
+function dblockByHeight (height) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'dblock-by-height',
     'params': {
       'height': height
@@ -122,13 +127,12 @@ function dblockByHeight (id, height) {
 /**
  * Retrieve administrative blocks for any given height.
  * @method ablockByHeight
- * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
  *
  */
-function ablockByHeight (id, height) {
+function ablockByHeight (height) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'ablock-by-height',
     'params': {
       'height': height
@@ -140,13 +144,12 @@ function ablockByHeight (id, height) {
  * Retrieve the entry credit block for any given height.
  * These blocks contain entry credit transaction information.
  * @method ecblockByHeight
- * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
  *
  */
-function ecblockByHeight (id, height) {
+function ecblockByHeight (height) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'ecblock-by-height',
     'params': {
       'height': height
@@ -157,13 +160,12 @@ function ecblockByHeight (id, height) {
 /**
  * Retrieve the factoid block for any given height.
  * These blocks contain factoid arbitrary information.
- * @param {Number} id arbitrary reference id
  * @param {Number} height height of block requested
  *
  */
-function fblockByHeight (id, height) {
+function fblockByHeight (height) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'fblock-by-height',
     'params': {
       'height': height
@@ -174,16 +176,15 @@ function fblockByHeight (id, height) {
 /**
  * Retrieve a specified factoid block given its merkle root key.
  * @method factoidBlock
- * @param {Number} id arbitrary reference id
- * @param {String} KeyMr Merkle root key
+ * @param {String} keyMr Merkle root key
  *
  */
-function factoidBlock (id, KeyMr) {
+function factoidBlock (keyMr) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'factoid-block',
     'params': {
-      'KeyMr': KeyMr
+      'KeyMr': keyMr
     }}
   return dispatch(jdata)
 }
@@ -192,16 +193,15 @@ function factoidBlock (id, KeyMr) {
  * Retrieve a specified entrycredit block given its merkle root key.
  * The numbers are minute markers.
  * @method entryCreditBlock
- * @param {Number} id arbitrary reference id
- * @param {String} KeyMr Merkle root key
+ * @param {String} keyMr Merkle root key
  *
  */
-function entryCreditBlock (id, KeyMR) {
+function entryCreditBlock (keyMR) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'entrycredit-block',
     'params': {
-      'KeyMR': KeyMR
+      'KeyMR': keyMR
     }}
   return dispatch(jdata)
 }
@@ -209,16 +209,15 @@ function entryCreditBlock (id, KeyMR) {
 /**
  * Retrieve a specified admin block given its merkle root key.
  * @method adminBlock
- * @param {Number} id arbitrary reference id
- * @param {String} KeyMr Merkle root key
+ * @param {String} keyMr Merkle root key
  *
  */
-function adminBlock (id, KeyMR) {
+function adminBlock (keyMR) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'admin-block',
     'params': {
-      'KeyMR': KeyMR
+      'KeyMR': keyMR
     }}
   return dispatch(jdata)
 }
@@ -227,16 +226,15 @@ function adminBlock (id, KeyMR) {
  * Retrieve a specified entry block given its merkle root key.
  * The entry block contains 0 to many entries
  * @method entryBlock
- * @param {Number} id arbitrary reference id
- * @param {String} KeyMr Merkle root key
+ * @param {String} keyMr Merkle root key
  *
  */
-function entryBlock (id, KeyMR) {
+function entryBlock (keyMR) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'entry-block',
     'params': {
-      'KeyMR': KeyMR
+      'KeyMR': keyMR
     }}
   return dispatch(jdata)
 }
@@ -244,13 +242,12 @@ function entryBlock (id, KeyMR) {
 /**
  * Get an Entry from factomd specified by the Entry Hash.
  * @method entry
- * @param {Number} id arbitrary reference id
  * @param {String} hash entry hash
  *
  */
-function entry (id, hash) {
+function entry (hash) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'entry',
     'params': {
       'Hash': hash
@@ -262,12 +259,11 @@ function entry (id, hash) {
  * Returns an array of the entries that have been submitted
  * but have not been recoreded into the blockchain.
  * @method pendingEntries
- * @param {Number} id arbitrary reference id
  *
  */
-function pendingEntries (id) {
+function pendingEntries () {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'pending-entries',
     'params': {
     }}
@@ -281,12 +277,11 @@ function pendingEntries (id) {
  * The “blockheight” parameter in the reponse will always be 0 when using
  * this call, refer to “includedindirectoryblockheight” if you need the height.
  * @method transaction
- * @param {Number} id arbitrary reference id
  *
  */
-function transaction (id, hash) {
+function transaction (hash) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'transaction',
     'params': {
       'hash': hash
@@ -298,14 +293,13 @@ function transaction (id, hash) {
  * Find the status of a transaction, whether it be a factoid,
  * reveal entry, or commit entry.
  * @method ack
- * @param {Number} id arbitrary reference id
  * @param {String} hash entry hash
  * @param {String} chainid chain id
  *
  */
-function ack (id, hash, chainid) {
+function ack (hash, chainid) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'ack',
     'params': {
       'hash': hash, 'chainid': chainid, 'fulltransaction': ''
@@ -318,13 +312,12 @@ function ack (id, hash, chainid) {
  * was recorded in the factom blockchain and that this was subsequently
  * anchored in the bitcoin blockchain.
  * @method receipt
- * @param {Number} id arbitrary reference id
  * @param {String} hash
  *
  */
-function receipt (id, hash) {
+function receipt (hash) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'receipt',
     'params': {
       'hash': hash
@@ -337,16 +330,15 @@ function receipt (id, hash) {
  * was recorded in the factom blockchain and that this was subsequently
  * anchored in the bitcoin blockchain.
  * @method pendingTransactions
- * @param {Number} id arbitrary reference id
- * @param {String} Address
+ * @param {String} address
  *
  */
-function pendingTransactions (id, Address) {
+function pendingTransactions (address) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'pending-transactions',
     'params': {
-      'Address': Address
+      'Address': address
     }}
   return dispatch(jdata)
 }
@@ -355,16 +347,15 @@ function pendingTransactions (id, Address) {
  * Return the keymr of the head of the chain for a chain ID
  * (the unique hash created when the chain was created).
  * @method chainHead
- * @param {Number} id arbitrary reference id
- * @param {Number} ChainID chain id
+ * @param {Number} chainID chain id
  *
  */
-function chainHead (id, ChainID) {
+function chainHead (chainID) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'chain-head',
     'params': {
-      'ChainID': ChainID
+      'ChainID': chainID
     }}
   return dispatch(jdata)
 }
@@ -372,13 +363,12 @@ function chainHead (id, ChainID) {
 /**
  * Return its current balance for a specific entry credit address.
  * @method entryCreditBalance
- * @param {Number} id arbitrary reference id
  * @param {String} address entry credit address
  *
  */
-function entryCreditBalance (id, address) {
+function entryCreditBalance (address) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'entry-credit-balance',
     'params': {
       'address': address
@@ -390,13 +380,12 @@ function entryCreditBalance (id, address) {
  * This call returns the number of Factoshis (Factoids *10^-8) that are currently
  * available at the address specified.
  * @method factoidBalance
- * @param {Number} id arbitrary reference id
  * @param {String} address factoid address
  *
  */
-function factoidBalance (id, address) {
+function factoidBalance (address) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'factoid-balance',
     'params': {
       'address': address
@@ -409,11 +398,10 @@ function factoidBalance (id, address) {
  * Entry Credit. The minimum factoid fees are also determined by this rate,
  * along with how complex the factoid arbitrary is.
  * @method entryCreditRate
- * @param {Number} id arbitrary reference id
  *
  */
-function entryCreditRate (id) {
-  var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'entry-credit-rate'}
+function entryCreditRate () {
+  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'entry-credit-rate'}
   return dispatch(jdata)
 }
 
@@ -421,11 +409,10 @@ function entryCreditRate (id) {
  * Retrieve current properties of the Factom system,
  * including the software and the API versions.
  * @method properties
- * @param {Number} id arbitrary reference id
  *
  */
-function properties (id) {
-  var jdata = {'jsonrpc': '2.0', 'id': id, 'method': 'properties'}
+function properties () {
+  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'properties'}
   return dispatch(jdata)
 }
 
@@ -434,13 +421,12 @@ function properties (id) {
  * https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#factoid-transaction
  * A factoid-submit api call can be composed with factom_walletd.compose-transaction
  * @method factoidSubmit
- * @param {Number} id arbitrary reference id
  * @param {String} transaction hex encoded string
  *
  */
-function factoidSubmit (id, transaction) {
+function factoidSubmit (transaction) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'factoid-submit',
     'params': {
       'transaction': transaction
@@ -454,13 +440,12 @@ function factoidSubmit (id, transaction) {
  * https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#chain-commit
  * https://docs.factom.com/api#factoid-submit
  * @method commit_chain
- * @param {Number} id arbitrary reference id
  * @param {String} message hex encoded string
  *
  */
-function commitChain (id, message) {
+function commitChain (message) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'commit-chain',
     'params': {
       'message': message
@@ -474,13 +459,12 @@ function commitChain (id, message) {
  * https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#entry
  * https://docs.factom.com/api#factoid-submit
  * @method revealChain
- * @param {Number} id arbitrary reference id
  * @param {String} entry reveal chain hex encoded string
  *
  */
-function revealChain (id, entry) {
+function revealChain (entry) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'reveal-chain',
     'params': {
       'entry': entry
@@ -494,13 +478,12 @@ function revealChain (id, entry) {
  * https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#entry-commit
  * https://docs.factom.com/api#reveal-chain
  * @method commitEntry
- * @param {Number} id arbitrary reference id
  * @param {String} message hex encoded string for entry
  *
  */
-function commitEntry (id, message) {
+function commitEntry (message) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'commit-entry',
     'params': {
       'message': message
@@ -514,13 +497,12 @@ function commitEntry (id, message) {
  * https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#entry
  * https://docs.factom.com/api#reveal-entry
  * @method revealEntry
- * @param {Number} id arbitrary reference id
  * @param {String} entry hex encoded string for reveal entry
  *
  */
-function revealEntry (id, entry) {
+function revealEntry (entry) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'reveal-entry',
     'params': {
       'entry': entry
@@ -533,13 +515,12 @@ function revealEntry (id, entry) {
  * This is mostly just for debugging and testing.
  * https://docs.factom.com/api#send-raw-message
  * @method sendRawMessage
- * @param {Number} id arbitrary reference id
  * @param {String} message raw hex encoded string
  *
  */
-function sendRawMessage (id, message) {
+function sendRawMessage (message) {
   var jdata = {'jsonrpc': '2.0',
-    'id': id,
+    'id': APICounter(),
     'method': 'send-raw-message',
     'params': {
       'message': message
