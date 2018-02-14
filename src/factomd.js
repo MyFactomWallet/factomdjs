@@ -39,16 +39,7 @@ function setTimeout (timeout) {
 function dispatch (jdata) {
   var opts = postoptions
   opts.body = jdata
-  // console.log('============++++ ++++============')
-  // console.log(jdata)
-  // console.log('============++++ ++++============')
   return got.post(URL, opts)
-    .then(response => {
-      return response
-    })
-    .catch(error => {
-      return error
-    })
 }
 
 /**
