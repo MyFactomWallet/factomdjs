@@ -1,17 +1,16 @@
 'use-strict'
 
 var URL = 'http://cosurtesy-node.factom.com/v2'
-var lib = URL.startsWith('https') ? require('https') : require('http');
+var lib = URL.startsWith('https') ? require('https') : require('http')
 var options = optinit()
 var timeout = 2000
 
-function optinit() {
-  var opt = require('url').parse(URL);
-  opt.headers = { 'content-type':'text/plain','content-length':0 }
+function optinit () {
+  var opt = require('url').parse(URL)
+  opt.headers = { 'content-type': 'text/plain', 'content-length': 0 }
   opt.method = 'POST'
   return opt
 }
-
 
 function newCounter () {
   let i = 0
@@ -30,7 +29,7 @@ const APICounter = newCounter()
  */
 function setFactomNode (url) {
   URL = url
-  lib = URL.startsWith('https') ? require('https') : require('http');
+  lib = URL.startsWith('https') ? require('https') : require('http')
   options = optinit()
 }
 
@@ -55,7 +54,7 @@ function dispatch (jdata) {
     options.headers['content-length'] = Buffer.byteLength(body)
     const request = new lib.ClientRequest(options)
     request.on('socket', (socket) => {
-      socket.setTimeout(timeout);  
+      socket.setTimeout(timeout)
       socket.on('timeout', () => request.abort())
     })
     request.end(body)
@@ -64,14 +63,14 @@ function dispatch (jdata) {
 
       // handle http errors
       if (response.statusCode < 200 || response.statusCode > 299) {
-        reject(new Error('Failed to load page, status code: ' + response.statusCode));
+        reject(new Error('Failed to load page, status code: ' + response.statusCode))
       }
       // temporary data holder
-      const body = [];
+      const body = []
       // on every content chunk, push it to the data array
-      response.on('data', (data) => body.push(data)) 
+      response.on('data', (data) => body.push(data))
       // all done, resolve promise with those joined chunks
-      response.on('end', () => resolve(JSON.parse(body.join('')).result)) 
+      response.on('end', () => resolve(JSON.parse(body.join('')).result))
     })
     // handle connection errors of the request
     request.on('error', (err) => reject(err))
@@ -551,7 +550,6 @@ function sendRawMessage (message) {
     'params': {
       'message': message
     }}
-	console.log(jdata)
   return dispatch(jdata)
 }
 
