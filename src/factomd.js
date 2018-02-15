@@ -1,15 +1,17 @@
-var got = require('request-promise-native')
+'use-strict'
 
-var postoptions = {
-  body: {},
-  json: true,
-  headers: {
-    'content-type': 'text/plain'},
-  retries: 3,
-  timeout: 2000
+var URL = 'http://cosurtesy-node.factom.com/v2'
+var lib = URL.startsWith('https') ? require('https') : require('http');
+var options = optinit()
+var timeout = 2000
+
+function optinit() {
+  var opt = require('url').parse(URL);
+  opt.headers = { 'content-type':'text/plain','content-length':0 }
+  opt.method = 'POST'
+  return opt
 }
 
-var URL = 'http://courtesy-node.factom.com/v2'
 
 function newCounter () {
   let i = 0
@@ -28,15 +30,17 @@ const APICounter = newCounter()
  */
 function setFactomNode (url) {
   URL = url
+  lib = URL.startsWith('https') ? require('https') : require('http');
+  options = optinit()
 }
 
 /**
   * Set the timeout of the JSON request to the factom node
   * @method setTimeout
-  * @param {Number} timeout Set the timeout in milliseconds
+  * @param {Number} to Set the timeout in milliseconds
  */
-function setTimeout (timeout) {
-  postoptions.timeout = timeout
+function setTimeout (to) {
+  timeout = to
 }
 
 /**
@@ -46,10 +50,32 @@ function setTimeout (timeout) {
  *
  */
 function dispatch (jdata) {
-  var opts = postoptions
-  opts.body = jdata
-  return got.post(URL, opts)
-        .then(response => response.result)
+  return new Promise((resolve, reject) => {
+    var body = JSON.stringify(jdata)
+    options.headers['content-length'] = Buffer.byteLength(body)
+    const request = new lib.ClientRequest(options)
+    request.on('socket', (socket) => {
+      socket.setTimeout(timeout);  
+      socket.on('timeout', () => request.abort())
+    })
+    request.end(body)
+    request.on('response', (response) => {
+      response.setEncoding('utf8')
+
+      // handle http errors
+      if (response.statusCode < 200 || response.statusCode > 299) {
+        reject(new Error('Failed to load page, status code: ' + response.statusCode));
+      }
+      // temporary data holder
+      const body = [];
+      // on every content chunk, push it to the data array
+      response.on('data', (data) => body.push(data)) 
+      // all done, resolve promise with those joined chunks
+      response.on('end', () => resolve(JSON.parse(body.join('')).result)) 
+    })
+    // handle connection errors of the request
+    request.on('error', (err) => reject(err))
+  })
 }
 
 /**
@@ -525,6 +551,7 @@ function sendRawMessage (message) {
     'params': {
       'message': message
     }}
+	console.log(jdata)
   return dispatch(jdata)
 }
 
