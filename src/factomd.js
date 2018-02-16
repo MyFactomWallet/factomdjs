@@ -66,14 +66,13 @@ function dispatch (jdata) {
       // on every content chunk, push it to the data array
       response.on('data', data => body.push(data))
       // all done, resolve promise with those joined chunks
-      response.on('end', function() {
+      response.on('end', function () {
         // handle http errors
         if (response.statusCode < 200 || response.statusCode > 299) {
           reject(JSON.parse(body.join('')).error)
         } else {
           resolve(JSON.parse(body.join('')).result)
         }
-      
       })
     })
     // handle connection errors of the request
