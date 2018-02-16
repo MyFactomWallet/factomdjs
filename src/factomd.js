@@ -1,6 +1,6 @@
 'use-strict'
 
-var URL = 'http://cosurtesy-node.factom.com/v2'
+var URL = 'http://courtesy-node.factom.com/v2'
 var lib = URL.startsWith('https') ? require('https') : require('http')
 var options = optinit()
 var timeout = 2000
