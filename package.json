@@ -1,6 +1,6 @@
 {
   "_from": "factomdjs@^0.3.0",
-  "_id": "factomdjs@0.3.1",
+  "_id": "factomdjs@0.3.2",
   "_inBundle": false,
   "_integrity": "sha512-RSE776a4oE5Q4xRtLeeOzeRJeaWUl/54/9PhkewiiZSF/EN6utaIXokrvTISmLdNhUogmCAZiaSRGWKHCFjtMA==",
   "_location": "/factomdjs",
@@ -8,19 +8,19 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "factomdjs@^0.3.1",
+    "raw": "factomdjs@^0.3.2",
     "name": "factomdjs",
     "escapedName": "factomdjs",
-    "rawSpec": "^0.3.1",
+    "rawSpec": "^0.3.2",
     "saveSpec": null,
-    "fetchSpec": "^0.3.1"
+    "fetchSpec": "^0.3.2"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.3.1.tgz",
+  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.3.2.tgz",
   "_shasum": "13c77efd312a036951a53b388f763324fc648a95",
-  "_spec": "factomdjs@^0.3.1",
+  "_spec": "factomdjs@^0.3.2",
   "_where": "/proj/MFW/factomd",
   "author": {
     "name": "bunfield",
@@ -44,21 +44,21 @@
   "bundleDependencies": false,
   "contributors": [
     {
+      "name": "Paul Bernier",
+      "email": null,
+      "url": "https://github.com/PaulBernier",
+      "contributions": 6,
+      "additions": 52853,
+      "deletions": 53044,
+      "hireable": null
+    },
+    {
       "name": null,
       "email": null,
       "url": "https://github.com/bunfield",
       "contributions": 1,
       "additions": 2,
       "deletions": 0,
-      "hireable": null
-    },
-    {
-      "name": "Paul Bernier",
-      "email": null,
-      "url": "https://github.com/PaulBernier",
-      "contributions": 2,
-      "additions": 53,
-      "deletions": 33,
       "hireable": null
     }
   ],
@@ -130,5 +130,5 @@
       "it"
     ]
   },
-  "version": "0.3.1"
+  "version": "0.3.2"
 }
