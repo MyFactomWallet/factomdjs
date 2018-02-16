@@ -7590,10 +7590,6 @@ function dispatch(jdata) {
     request.on('response', function (response) {
       response.setEncoding('utf8');
 
-      // handle http errors
-      if (response.statusCode < 200 || response.statusCode > 299) {
-        reject(new Error('Failed to load page, status code: ' + response.statusCode));
-      }
       // temporary data holder
       var body = [];
       // on every content chunk, push it to the data array
@@ -7602,7 +7598,12 @@ function dispatch(jdata) {
       });
       // all done, resolve promise with those joined chunks
       response.on('end', function () {
-        return resolve(JSON.parse(body.join('')).result);
+        // handle http errors
+        if (response.statusCode < 200 || response.statusCode > 299) {
+          reject(JSON.parse(body.join('')).error);
+        } else {
+          resolve(JSON.parse(body.join('')).result);
+        }
       });
     });
     // handle connection errors of the request
