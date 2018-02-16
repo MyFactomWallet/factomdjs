@@ -1,6 +1,6 @@
 {
-  "_from": "factomdjs@^0.3.0",
-  "_id": "factomdjs@0.3.2",
+  "_from": "factomdjs@^0.3.2",
+  "_id": "factomdjs@0.3.3",
   "_inBundle": false,
   "_integrity": "sha512-RSE776a4oE5Q4xRtLeeOzeRJeaWUl/54/9PhkewiiZSF/EN6utaIXokrvTISmLdNhUogmCAZiaSRGWKHCFjtMA==",
   "_location": "/factomdjs",
@@ -8,19 +8,19 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "factomdjs@^0.3.2",
+    "raw": "factomdjs@^0.3.3",
     "name": "factomdjs",
     "escapedName": "factomdjs",
-    "rawSpec": "^0.3.2",
+    "rawSpec": "^0.3.3",
     "saveSpec": null,
-    "fetchSpec": "^0.3.2"
+    "fetchSpec": "^0.3.3"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.3.2.tgz",
+  "_resolved": "https://registry.npmjs.org/factomdjs/-/factomdjs-0.3.3.tgz",
   "_shasum": "13c77efd312a036951a53b388f763324fc648a95",
-  "_spec": "factomdjs@^0.3.2",
+  "_spec": "factomdjs@^0.3.3",
   "_where": "/proj/MFW/factomd",
   "author": {
     "name": "bunfield",
@@ -130,5 +130,5 @@
       "it"
     ]
   },
-  "version": "0.3.2"
+  "version": "0.3.3"
 }
