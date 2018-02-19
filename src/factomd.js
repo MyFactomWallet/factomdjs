@@ -68,10 +68,11 @@ function dispatch (jdata) {
       // all done, resolve promise with those joined chunks
       response.on('end', function () {
         // handle http errors
+        const responseBody = body.join('')
         if (response.statusCode < 200 || response.statusCode > 299) {
-          reject(JSON.parse(body.join('')).error)
+          responseBody.includes('"jsonrpc":"2.0"') ? reject(JSON.parse(responseBody).error) : reject(responseBody)
         } else {
-          resolve(JSON.parse(body.join('')).result)
+          resolve(JSON.parse(responseBody).result)
         }
       })
     })
