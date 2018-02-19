@@ -7640,10 +7640,13 @@ function extend() {
 'use strict';
 'use-strict';
 
-var URL = 'http://courtesy-node.factom.com/v2';
-var lib = URL.startsWith('https') ? require('https') : require('http');
-var options = optinit();
-var timeout = 2000;
+var URL = void 0,
+    lib = void 0,
+    options = void 0,
+    timeout = void 0;
+// Initialize default values
+setFactomNode('http://courtesy-node.factom.com/v2');
+setTimeout(2000);
 
 function optinit() {
   var opt = require('url').parse(URL);
