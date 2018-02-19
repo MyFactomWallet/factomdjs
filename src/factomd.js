@@ -34,12 +34,28 @@ function setFactomNode (url) {
 }
 
 /**
+  * Get the URL of the factom node.
+  * @method getUrl
+ */
+function getUrl () {
+  return URL
+}
+
+/**
   * Set the timeout of the JSON request to the factom node
   * @method setTimeout
   * @param {Number} to Set the timeout in milliseconds
  */
 function setTimeout (to) {
   timeout = to
+}
+
+/**
+  * Get the timeout of the JSON request to the factom node
+  * @method getTimeout
+ */
+function getTimeout () {
+  return timeout
 }
 
 /**
@@ -559,7 +575,9 @@ function sendRawMessage (message) {
 
 module.exports = {
   setTimeout,
+  getTimeout,
   setFactomNode,
+  getUrl,
   directoryBlock,
   directoryBlockHead,
   heights,
