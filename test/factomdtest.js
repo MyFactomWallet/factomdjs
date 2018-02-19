@@ -330,3 +330,17 @@ describe('factomd.sendRawMessage', function () {
     }, done)
   })
 })
+
+describe('getUrl', function () {
+  it('should get the url of the factom node configured', function (done) {
+    assert.equal(factomd.getUrl(), 'http://courtesy-node.factom.com/v2')
+    done();
+  })
+})
+
+describe('getTimeout', function () {
+  it('should get the timeout configured', function (done) {
+    assert.equal(factomd.getTimeout(), 2000)
+    done();
+  })
+})

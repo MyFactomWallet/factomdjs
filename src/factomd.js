@@ -1,12 +1,12 @@
 'use-strict'
 
-var URL = 'http://courtesy-node.factom.com/v2'
-var lib = URL.startsWith('https') ? require('https') : require('http')
-var options = optinit()
-var timeout = 2000
+let URL, lib, options, timeout
+// Initialize default values
+setFactomNode('http://courtesy-node.factom.com/v2')
+setTimeout(2000)
 
 function optinit () {
-  var opt = require('url').parse(URL)
+  const opt = require('url').parse(URL)
   opt.headers = { 'content-type': 'text/plain', 'content-length': 0 }
   opt.method = 'POST'
   return opt
@@ -34,12 +34,28 @@ function setFactomNode (url) {
 }
 
 /**
+  * Get the URL of the factom node.
+  * @method getUrl
+ */
+function getUrl () {
+  return URL
+}
+
+/**
   * Set the timeout of the JSON request to the factom node
   * @method setTimeout
   * @param {Number} to Set the timeout in milliseconds
  */
 function setTimeout (to) {
   timeout = to
+}
+
+/**
+  * Get the timeout of the JSON request to the factom node
+  * @method getTimeout
+ */
+function getTimeout () {
+  return timeout
 }
 
 /**
@@ -68,10 +84,11 @@ function dispatch (jdata) {
       // all done, resolve promise with those joined chunks
       response.on('end', function () {
         // handle http errors
+        const responseBody = body.join('')
         if (response.statusCode < 200 || response.statusCode > 299) {
-          reject(JSON.parse(body.join('')).error)
+          responseBody.includes('"jsonrpc":"2.0"') ? reject(JSON.parse(responseBody).error) : reject(responseBody)
         } else {
-          resolve(JSON.parse(body.join('')).result)
+          resolve(JSON.parse(responseBody).result)
         }
       })
     })
@@ -88,7 +105,7 @@ function dispatch (jdata) {
  *
  */
 function directoryBlock (keymr) {
-  var jdata = { 'jsonrpc': '2.0',
+  const jdata = { 'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'directory-block',
     'params': {
@@ -104,7 +121,7 @@ function directoryBlock (keymr) {
  *
  */
 function directoryBlockHead () {
-  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'directory-block-head'}
+  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'directory-block-head'}
   return dispatch(jdata)
 }
 
@@ -115,7 +132,7 @@ function directoryBlockHead () {
  *
  */
 function heights () {
-  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'heights'}
+  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'heights'}
   return dispatch(jdata)
 }
 
@@ -127,7 +144,7 @@ function heights () {
  *
  */
 function rawData (hash) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'raw-data',
     'params': {
@@ -143,7 +160,7 @@ function rawData (hash) {
  *
  */
 function dblockByHeight (height) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'dblock-by-height',
     'params': {
@@ -159,7 +176,7 @@ function dblockByHeight (height) {
  *
  */
 function ablockByHeight (height) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'ablock-by-height',
     'params': {
@@ -176,7 +193,7 @@ function ablockByHeight (height) {
  *
  */
 function ecblockByHeight (height) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'ecblock-by-height',
     'params': {
@@ -192,7 +209,7 @@ function ecblockByHeight (height) {
  *
  */
 function fblockByHeight (height) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'fblock-by-height',
     'params': {
@@ -208,7 +225,7 @@ function fblockByHeight (height) {
  *
  */
 function factoidBlock (keyMr) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'factoid-block',
     'params': {
@@ -225,7 +242,7 @@ function factoidBlock (keyMr) {
  *
  */
 function entryCreditBlock (keyMR) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'entrycredit-block',
     'params': {
@@ -241,7 +258,7 @@ function entryCreditBlock (keyMR) {
  *
  */
 function adminBlock (keyMR) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'admin-block',
     'params': {
@@ -258,7 +275,7 @@ function adminBlock (keyMR) {
  *
  */
 function entryBlock (keyMR) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'entry-block',
     'params': {
@@ -274,7 +291,7 @@ function entryBlock (keyMR) {
  *
  */
 function entry (hash) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'entry',
     'params': {
@@ -290,7 +307,7 @@ function entry (hash) {
  *
  */
 function pendingEntries () {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'pending-entries',
     'params': {
@@ -308,7 +325,7 @@ function pendingEntries () {
  *
  */
 function transaction (hash) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'transaction',
     'params': {
@@ -326,7 +343,7 @@ function transaction (hash) {
  *
  */
 function ack (hash, chainid) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'ack',
     'params': {
@@ -344,7 +361,7 @@ function ack (hash, chainid) {
  *
  */
 function receipt (hash) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'receipt',
     'params': {
@@ -362,7 +379,7 @@ function receipt (hash) {
  *
  */
 function pendingTransactions (address) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'pending-transactions',
     'params': {
@@ -379,7 +396,7 @@ function pendingTransactions (address) {
  *
  */
 function chainHead (chainID) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'chain-head',
     'params': {
@@ -395,7 +412,7 @@ function chainHead (chainID) {
  *
  */
 function entryCreditBalance (address) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'entry-credit-balance',
     'params': {
@@ -412,7 +429,7 @@ function entryCreditBalance (address) {
  *
  */
 function factoidBalance (address) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'factoid-balance',
     'params': {
@@ -429,7 +446,7 @@ function factoidBalance (address) {
  *
  */
 function entryCreditRate () {
-  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'entry-credit-rate'}
+  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'entry-credit-rate'}
   return dispatch(jdata)
 }
 
@@ -440,7 +457,7 @@ function entryCreditRate () {
  *
  */
 function properties () {
-  var jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'properties'}
+  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'properties'}
   return dispatch(jdata)
 }
 
@@ -453,7 +470,7 @@ function properties () {
  *
  */
 function factoidSubmit (transaction) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'factoid-submit',
     'params': {
@@ -472,7 +489,7 @@ function factoidSubmit (transaction) {
  *
  */
 function commitChain (message) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'commit-chain',
     'params': {
@@ -491,7 +508,7 @@ function commitChain (message) {
  *
  */
 function revealChain (entry) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'reveal-chain',
     'params': {
@@ -510,7 +527,7 @@ function revealChain (entry) {
  *
  */
 function commitEntry (message) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'commit-entry',
     'params': {
@@ -529,7 +546,7 @@ function commitEntry (message) {
  *
  */
 function revealEntry (entry) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'reveal-entry',
     'params': {
@@ -547,7 +564,7 @@ function revealEntry (entry) {
  *
  */
 function sendRawMessage (message) {
-  var jdata = {'jsonrpc': '2.0',
+  const jdata = {'jsonrpc': '2.0',
     'id': APICounter(),
     'method': 'send-raw-message',
     'params': {
@@ -558,7 +575,9 @@ function sendRawMessage (message) {
 
 module.exports = {
   setTimeout,
+  getTimeout,
   setFactomNode,
+  getUrl,
   directoryBlock,
   directoryBlockHead,
   heights,
