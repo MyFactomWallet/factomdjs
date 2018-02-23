@@ -1,9 +1,10 @@
 var assert = require('assert')
-var factomd = require('../src/factomd.js')
+var factom = require('../src/factomd.js')
 
 //factomd.setFactomNode('http://127.0.0.1:8088/v2')
-factomd.setFactomNode('http://courtesy-node.factom.com/v2')
-factomd.setTimeout(2000)
+var factomd = new factom.Factomd() //('http://courtesy-node.factom.com/v2', 2000)
+//factomd.setFactomNode('http://courtesy-node.factom.com/v2')
+//factomd.setTimeout(2000)
 
 
 describe('factomd.directoryBlock', function () {
@@ -331,9 +332,9 @@ describe('factomd.sendRawMessage', function () {
   })
 })
 
-describe('getUrl', function () {
+describe('getFactomNode', function () {
   it('should get the url of the factom node configured', function (done) {
-    assert.equal(factomd.getUrl(), 'http://courtesy-node.factom.com/v2')
+    assert.equal(factomd.getFactomNode(), 'http://courtesy-node.factom.com/v2')
     done();
   })
 })
