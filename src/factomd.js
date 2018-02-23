@@ -3,7 +3,7 @@
 function optinit (url) {
   const opt = require('url').parse(url)
   opt.headers = { 'content-type': 'text/plain', 'content-length': 0 }
-  opt.method = 'POST'  
+  opt.method = 'POST'
   return opt
 }
 
