@@ -12,12 +12,15 @@ JavaScript implementation of the factomd API v2.
 ```js
 const factomdjs = require('factomdjs');
 
+const factomd = new factomdjs.Factomd()
+
+
 // By default the library connect to a courtesy node hosted by factom.com.
 // Use setFactomNode to connect to a specific Factom Node.
-// factomdjs.setFactomNode('http://localhost:8088/v2');
+// factomd.setFactomNode('http://localhost:8088/v2');
 
 // Example to retrieve the content of an entry
-factomdjs.entry('ce3df00a20b6aaaf14f8ff0a2c3efa854160245cf17ce9d36a8ff03090a1135e')
+factomd.entry('ce3df00a20b6aaaf14f8ff0a2c3efa854160245cf17ce9d36a8ff03090a1135e')
     .then(res => Buffer.from(res.content, 'hex').toString('utf8'))
     .then(console.log);
 ```
