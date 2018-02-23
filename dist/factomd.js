@@ -7527,16 +7527,8 @@ function extend() {
 'use strict';
 'use-strict';
 
-var URL = void 0,
-    lib = void 0,
-    options = void 0,
-    timeout = void 0;
-// Initialize default values
-setFactomNode('http://courtesy-node.factom.com/v2');
-setTimeout(2000);
-
-function optinit() {
-  var opt = require('url').parse(URL);
+function optinit(url) {
+  var opt = require('url').parse(url);
   opt.headers = { 'content-type': 'text/plain', 'content-length': 0 };
   opt.method = 'POST';
   return opt;
@@ -7545,48 +7537,51 @@ function optinit() {
 function newCounter() {
   var i = 0;
   return function () {
-    i++;
-    return i;
+    return ++i;
   };
 }
 
-var APICounter = newCounter();
+function Factomd() {
+  this.timeout = 2000;
+  this.setFactomNode('http://courtesy-node.factom.com/v2');
+  this.APICounter = newCounter();
+}
 
 /**
   * Set the URL of the factom node.
   * @method setFactomNode
   * @param {url} url of the factom node
  */
-function setFactomNode(url) {
-  URL = url;
-  lib = URL.startsWith('https') ? require('https') : require('http');
-  options = optinit();
-}
+Factomd.prototype.setFactomNode = function (url) {
+  this.URL = url;
+  this.options = optinit(url);
+  this.lib = url.startsWith('https') ? require('https') : require('http');
+};
 
 /**
   * Get the URL of the factom node.
   * @method getUrl
  */
-function getUrl() {
-  return URL;
-}
+Factomd.prototype.getFactomNode = function () {
+  return this.URL;
+};
 
 /**
   * Set the timeout of the JSON request to the factom node
   * @method setTimeout
   * @param {Number} to Set the timeout in milliseconds
  */
-function setTimeout(to) {
-  timeout = to;
-}
+Factomd.prototype.setTimeout = function (to) {
+  this.timeout = to;
+};
 
 /**
   * Get the timeout of the JSON request to the factom node
   * @method getTimeout
  */
-function getTimeout() {
-  return timeout;
-}
+Factomd.prototype.getTimeout = function () {
+  return this.timeout;
+};
 
 /**
  * Utility commands for dispatching JSON commands to the factom server.
@@ -7594,13 +7589,15 @@ function getTimeout() {
  * @param {Array} jdata
  *
  */
-function dispatch(jdata) {
+Factomd.prototype.dispatch = function (jdata) {
+  var _this = this;
+
   return new Promise(function (resolve, reject) {
     var body = JSON.stringify(jdata);
-    options.headers['content-length'] = Buffer.byteLength(body);
-    var request = new lib.ClientRequest(options);
+    _this.options.headers['content-length'] = Buffer.byteLength(body);
+    var request = new _this.lib.ClientRequest(_this.options);
     request.on('socket', function (socket) {
-      socket.setTimeout(timeout);
+      socket.setTimeout(_this.timeout);
       socket.on('timeout', function () {
         return request.abort();
       });
@@ -7631,7 +7628,7 @@ function dispatch(jdata) {
       return reject(err);
     });
   });
-}
+};
 
 /**
  * The directory block head is the last known directory block by factom,
@@ -7640,15 +7637,15 @@ function dispatch(jdata) {
  * @param {String} keymr
  *
  */
-function directoryBlock(keymr) {
+Factomd.prototype.directoryBlock = function (keymr) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'directory-block',
     'params': {
       'KeyMR': keymr
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * The directory block head is the last known directory block by factom,
@@ -7656,10 +7653,10 @@ function directoryBlock(keymr) {
  * @method directoryBlockHead
  *
  */
-function directoryBlockHead() {
-  var jdata = { 'jsonrpc': '2.0', 'id': APICounter(), 'method': 'directory-block-head' };
-  return dispatch(jdata);
-}
+Factomd.prototype.directoryBlockHead = function () {
+  var jdata = { 'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'directory-block-head' };
+  return this.dispatch(jdata);
+};
 
 /**
  * Returns various heights that allows you to view the state of the blockchain.
@@ -7667,10 +7664,10 @@ function directoryBlockHead() {
  * @method heights
  *
  */
-function heights() {
-  var jdata = { 'jsonrpc': '2.0', 'id': APICounter(), 'method': 'heights' };
-  return dispatch(jdata);
-}
+Factomd.prototype.heights = function () {
+  var jdata = { 'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'heights' };
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve an entry or transaction in raw format, the data is a hex encoded string.
@@ -7679,15 +7676,15 @@ function heights() {
  * @param {String} hash
  *
  */
-function rawData(hash) {
+Factomd.prototype.rawData = function (hash) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'raw-data',
     'params': {
       'hash': hash
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a directory block given only its height.
@@ -7695,15 +7692,15 @@ function rawData(hash) {
  * @param {Number} height height of block requested
  *
  */
-function dblockByHeight(height) {
+Factomd.prototype.dblockByHeight = function (height) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'dblock-by-height',
     'params': {
       'height': height
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve administrative blocks for any given height.
@@ -7711,15 +7708,15 @@ function dblockByHeight(height) {
  * @param {Number} height height of block requested
  *
  */
-function ablockByHeight(height) {
+Factomd.prototype.ablockByHeight = function (height) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ablock-by-height',
     'params': {
       'height': height
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve the entry credit block for any given height.
@@ -7728,15 +7725,15 @@ function ablockByHeight(height) {
  * @param {Number} height height of block requested
  *
  */
-function ecblockByHeight(height) {
+Factomd.prototype.ecblockByHeight = function (height) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ecblock-by-height',
     'params': {
       'height': height
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve the factoid block for any given height.
@@ -7744,15 +7741,15 @@ function ecblockByHeight(height) {
  * @param {Number} height height of block requested
  *
  */
-function fblockByHeight(height) {
+Factomd.prototype.fblockByHeight = function (height) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'fblock-by-height',
     'params': {
       'height': height
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a specified factoid block given its merkle root key.
@@ -7760,15 +7757,15 @@ function fblockByHeight(height) {
  * @param {String} keyMr Merkle root key
  *
  */
-function factoidBlock(keyMr) {
+Factomd.prototype.factoidBlock = function (keyMr) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-block',
     'params': {
       'KeyMr': keyMr
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a specified entrycredit block given its merkle root key.
@@ -7777,15 +7774,15 @@ function factoidBlock(keyMr) {
  * @param {String} keyMr Merkle root key
  *
  */
-function entryCreditBlock(keyMR) {
+Factomd.prototype.entryCreditBlock = function (keyMR) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entrycredit-block',
     'params': {
       'KeyMR': keyMR
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a specified admin block given its merkle root key.
@@ -7793,15 +7790,15 @@ function entryCreditBlock(keyMR) {
  * @param {String} keyMr Merkle root key
  *
  */
-function adminBlock(keyMR) {
+Factomd.prototype.adminBlock = function (keyMR) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'admin-block',
     'params': {
       'KeyMR': keyMR
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a specified entry block given its merkle root key.
@@ -7810,15 +7807,15 @@ function adminBlock(keyMR) {
  * @param {String} keyMr Merkle root key
  *
  */
-function entryBlock(keyMR) {
+Factomd.prototype.entryBlock = function (keyMR) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry-block',
     'params': {
       'KeyMR': keyMR
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Get an Entry from factomd specified by the Entry Hash.
@@ -7826,15 +7823,15 @@ function entryBlock(keyMR) {
  * @param {String} hash entry hash
  *
  */
-function entry(hash) {
+Factomd.prototype.entry = function (hash) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry',
     'params': {
       'Hash': hash
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Returns an array of the entries that have been submitted
@@ -7842,13 +7839,13 @@ function entry(hash) {
  * @method pendingEntries
  *
  */
-function pendingEntries() {
+Factomd.prototype.pendingEntries = function () {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'pending-entries',
     'params': {} };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve details of a factoid arbitrary using a transactions hash.
@@ -7859,15 +7856,15 @@ function pendingEntries() {
  * @method transaction
  *
  */
-function transaction(hash) {
+Factomd.prototype.transaction = function (hash) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'transaction',
     'params': {
       'hash': hash
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Find the status of a transaction, whether it be a factoid,
@@ -7877,15 +7874,15 @@ function transaction(hash) {
  * @param {String} chainid chain id
  *
  */
-function ack(hash, chainid) {
+Factomd.prototype.ack = function (hash, chainid) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ack',
     'params': {
       'hash': hash, 'chainid': chainid, 'fulltransaction': ''
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a reciept providing cryptographially verfiable proof that information
@@ -7895,15 +7892,15 @@ function ack(hash, chainid) {
  * @param {String} hash
  *
  */
-function receipt(hash) {
+Factomd.prototype.receipt = function (hash) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'receipt',
     'params': {
       'hash': hash
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve a reciept providing cryptographially verfiable proof that information
@@ -7913,15 +7910,15 @@ function receipt(hash) {
  * @param {String} address
  *
  */
-function pendingTransactions(address) {
+Factomd.prototype.pendingTransactions = function (address) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'pending-transactions',
     'params': {
       'Address': address
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Return the keymr of the head of the chain for a chain ID
@@ -7930,15 +7927,15 @@ function pendingTransactions(address) {
  * @param {Number} chainID chain id
  *
  */
-function chainHead(chainID) {
+Factomd.prototype.chainHead = function (chainID) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'chain-head',
     'params': {
       'ChainID': chainID
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Return its current balance for a specific entry credit address.
@@ -7946,15 +7943,15 @@ function chainHead(chainID) {
  * @param {String} address entry credit address
  *
  */
-function entryCreditBalance(address) {
+Factomd.prototype.entryCreditBalance = function (address) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry-credit-balance',
     'params': {
       'address': address
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * This call returns the number of Factoshis (Factoids *10^-8) that are currently
@@ -7963,15 +7960,15 @@ function entryCreditBalance(address) {
  * @param {String} address factoid address
  *
  */
-function factoidBalance(address) {
+Factomd.prototype.factoidBalance = function (address) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-balance',
     'params': {
       'address': address
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Returns the number of Factoshis (Factoids *10^-8) that purchase a single
@@ -7980,10 +7977,10 @@ function factoidBalance(address) {
  * @method entryCreditRate
  *
  */
-function entryCreditRate() {
-  var jdata = { 'jsonrpc': '2.0', 'id': APICounter(), 'method': 'entry-credit-rate' };
-  return dispatch(jdata);
-}
+Factomd.prototype.entryCreditRate = function () {
+  var jdata = { 'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'entry-credit-rate' };
+  return this.dispatch(jdata);
+};
 
 /**
  * Retrieve current properties of the Factom system,
@@ -7991,10 +7988,10 @@ function entryCreditRate() {
  * @method properties
  *
  */
-function properties() {
-  var jdata = { 'jsonrpc': '2.0', 'id': APICounter(), 'method': 'properties' };
-  return dispatch(jdata);
-}
+Factomd.prototype.properties = function () {
+  var jdata = { 'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'properties' };
+  return this.dispatch(jdata);
+};
 
 /**
  * Submit a factoid arbitrary with hex encoded string documented here:
@@ -8004,15 +8001,15 @@ function properties() {
  * @param {String} transaction hex encoded string
  *
  */
-function factoidSubmit(transaction) {
+Factomd.prototype.factoidSubmit = function (transaction) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-submit',
     'params': {
       'transaction': transaction
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Send a Chain Commit Message to factomd to create a new Chain
@@ -8023,15 +8020,15 @@ function factoidSubmit(transaction) {
  * @param {String} message hex encoded string
  *
  */
-function commitChain(message) {
+Factomd.prototype.commitChain = function (message) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'commit-chain',
     'params': {
       'message': message
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Reveal the First Entry in a Chain to factomd after the Commit to compleate
@@ -8042,15 +8039,15 @@ function commitChain(message) {
  * @param {String} entry reveal chain hex encoded string
  *
  */
-function revealChain(entry) {
+Factomd.prototype.revealChain = function (entry) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'reveal-chain',
     'params': {
       'entry': entry
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Send an Entry Commit Message to factom to create a new Entry. The entry commit
@@ -8061,15 +8058,15 @@ function revealChain(entry) {
  * @param {String} message hex encoded string for entry
  *
  */
-function commitEntry(message) {
+Factomd.prototype.commitEntry = function (message) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'commit-entry',
     'params': {
       'message': message
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Reveal an Entry to factomd after the Commit to compleate the Entry creation.
@@ -8080,15 +8077,15 @@ function commitEntry(message) {
  * @param {String} entry hex encoded string for reveal entry
  *
  */
-function revealEntry(entry) {
+Factomd.prototype.revealEntry = function (entry) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'reveal-entry',
     'params': {
       'entry': entry
     } };
-  return dispatch(jdata);
-}
+  return this.dispatch(jdata);
+};
 
 /**
  * Send a raw hex encoded binary message to the Factom network.
@@ -8098,51 +8095,17 @@ function revealEntry(entry) {
  * @param {String} message raw hex encoded string
  *
  */
-function sendRawMessage(message) {
+Factomd.prototype.sendRawMessage = function (message) {
   var jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'send-raw-message',
     'params': {
       'message': message
     } };
-  return dispatch(jdata);
-}
-
-module.exports = {
-  setTimeout: setTimeout,
-  getTimeout: getTimeout,
-  setFactomNode: setFactomNode,
-  getUrl: getUrl,
-  directoryBlock: directoryBlock,
-  directoryBlockHead: directoryBlockHead,
-  heights: heights,
-  rawData: rawData,
-  dblockByHeight: dblockByHeight,
-  ablockByHeight: ablockByHeight,
-  ecblockByHeight: ecblockByHeight,
-  fblockByHeight: fblockByHeight,
-  factoidBlock: factoidBlock,
-  entryCreditBlock: entryCreditBlock,
-  adminBlock: adminBlock,
-  entryBlock: entryBlock,
-  entry: entry,
-  pendingEntries: pendingEntries,
-  transaction: transaction,
-  ack: ack,
-  receipt: receipt,
-  pendingTransactions: pendingTransactions,
-  chainHead: chainHead,
-  entryCreditBalance: entryCreditBalance,
-  factoidBalance: factoidBalance,
-  entryCreditRate: entryCreditRate,
-  properties: properties,
-  factoidSubmit: factoidSubmit,
-  commitChain: commitChain,
-  revealChain: revealChain,
-  commitEntry: commitEntry,
-  revealEntry: revealEntry,
-  sendRawMessage: sendRawMessage
+  return this.dispatch(jdata);
 };
+
+module.exports.Factomd = Factomd;
 
 }).call(this,require("buffer").Buffer)
 },{"buffer":3,"http":28,"https":7,"url":34}]},{},[])("factomdjs")
