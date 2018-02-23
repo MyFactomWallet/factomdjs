@@ -1,44 +1,42 @@
 'use-strict'
 
-let URL, lib, options, timeout
-// Initialize default values
-setFactomNode('http://courtesy-node.factom.com/v2')
-setTimeout(2000)
-
-function optinit () {
-  const opt = require('url').parse(URL)
+function optinit (url) {
+  const opt = require('url').parse(url)
   opt.headers = { 'content-type': 'text/plain', 'content-length': 0 }
-  opt.method = 'POST'
+  opt.method = 'POST'  
   return opt
 }
 
 function newCounter () {
   let i = 0
   return function () {
-    i++
-    return i
+    return ++i
   }
 }
 
-const APICounter = newCounter()
+function Factomd () {
+  this.timeout = 2000
+  this.setFactomNode('http://courtesy-node.factom.com/v2')
+  this.APICounter = newCounter()
+}
 
 /**
   * Set the URL of the factom node.
   * @method setFactomNode
   * @param {url} url of the factom node
  */
-function setFactomNode (url) {
-  URL = url
-  lib = URL.startsWith('https') ? require('https') : require('http')
-  options = optinit()
+Factomd.prototype.setFactomNode = function (url) {
+  this.URL = url
+  this.options = optinit(url)
+  this.lib = url.startsWith('https') ? require('https') : require('http')
 }
 
 /**
   * Get the URL of the factom node.
   * @method getUrl
  */
-function getUrl () {
-  return URL
+Factomd.prototype.getFactomNode = function () {
+  return this.URL
 }
 
 /**
@@ -46,16 +44,16 @@ function getUrl () {
   * @method setTimeout
   * @param {Number} to Set the timeout in milliseconds
  */
-function setTimeout (to) {
-  timeout = to
+Factomd.prototype.setTimeout = function (to) {
+  this.timeout = to
 }
 
 /**
   * Get the timeout of the JSON request to the factom node
   * @method getTimeout
  */
-function getTimeout () {
-  return timeout
+Factomd.prototype.getTimeout = function () {
+  return this.timeout
 }
 
 /**
@@ -64,13 +62,13 @@ function getTimeout () {
  * @param {Array} jdata
  *
  */
-function dispatch (jdata) {
+Factomd.prototype.dispatch = function (jdata) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(jdata)
-    options.headers['content-length'] = Buffer.byteLength(body)
-    const request = new lib.ClientRequest(options)
+    this.options.headers['content-length'] = Buffer.byteLength(body)
+    const request = new this.lib.ClientRequest(this.options)
     request.on('socket', socket => {
-      socket.setTimeout(timeout)
+      socket.setTimeout(this.timeout)
       socket.on('timeout', () => request.abort())
     })
     request.end(body)
@@ -104,14 +102,14 @@ function dispatch (jdata) {
  * @param {String} keymr
  *
  */
-function directoryBlock (keymr) {
+Factomd.prototype.directoryBlock = function (keymr) {
   const jdata = { 'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'directory-block',
     'params': {
       'KeyMR': keymr
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -120,9 +118,9 @@ function directoryBlock (keymr) {
  * @method directoryBlockHead
  *
  */
-function directoryBlockHead () {
-  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'directory-block-head'}
-  return dispatch(jdata)
+Factomd.prototype.directoryBlockHead = function () {
+  const jdata = {'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'directory-block-head'}
+  return this.dispatch(jdata)
 }
 
 /**
@@ -131,9 +129,9 @@ function directoryBlockHead () {
  * @method heights
  *
  */
-function heights () {
-  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'heights'}
-  return dispatch(jdata)
+Factomd.prototype.heights = function () {
+  const jdata = {'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'heights'}
+  return this.dispatch(jdata)
 }
 
 /**
@@ -143,14 +141,14 @@ function heights () {
  * @param {String} hash
  *
  */
-function rawData (hash) {
+Factomd.prototype.rawData = function (hash) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'raw-data',
     'params': {
       'hash': hash
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -159,14 +157,14 @@ function rawData (hash) {
  * @param {Number} height height of block requested
  *
  */
-function dblockByHeight (height) {
+Factomd.prototype.dblockByHeight = function (height) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'dblock-by-height',
     'params': {
       'height': height
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -175,14 +173,14 @@ function dblockByHeight (height) {
  * @param {Number} height height of block requested
  *
  */
-function ablockByHeight (height) {
+Factomd.prototype.ablockByHeight = function (height) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ablock-by-height',
     'params': {
       'height': height
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -192,14 +190,14 @@ function ablockByHeight (height) {
  * @param {Number} height height of block requested
  *
  */
-function ecblockByHeight (height) {
+Factomd.prototype.ecblockByHeight = function (height) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ecblock-by-height',
     'params': {
       'height': height
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -208,14 +206,14 @@ function ecblockByHeight (height) {
  * @param {Number} height height of block requested
  *
  */
-function fblockByHeight (height) {
+Factomd.prototype.fblockByHeight = function (height) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'fblock-by-height',
     'params': {
       'height': height
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -224,14 +222,14 @@ function fblockByHeight (height) {
  * @param {String} keyMr Merkle root key
  *
  */
-function factoidBlock (keyMr) {
+Factomd.prototype.factoidBlock = function (keyMr) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-block',
     'params': {
       'KeyMr': keyMr
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -241,14 +239,14 @@ function factoidBlock (keyMr) {
  * @param {String} keyMr Merkle root key
  *
  */
-function entryCreditBlock (keyMR) {
+Factomd.prototype.entryCreditBlock = function (keyMR) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entrycredit-block',
     'params': {
       'KeyMR': keyMR
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -257,14 +255,14 @@ function entryCreditBlock (keyMR) {
  * @param {String} keyMr Merkle root key
  *
  */
-function adminBlock (keyMR) {
+Factomd.prototype.adminBlock = function (keyMR) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'admin-block',
     'params': {
       'KeyMR': keyMR
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -274,14 +272,14 @@ function adminBlock (keyMR) {
  * @param {String} keyMr Merkle root key
  *
  */
-function entryBlock (keyMR) {
+Factomd.prototype.entryBlock = function (keyMR) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry-block',
     'params': {
       'KeyMR': keyMR
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -290,14 +288,14 @@ function entryBlock (keyMR) {
  * @param {String} hash entry hash
  *
  */
-function entry (hash) {
+Factomd.prototype.entry = function (hash) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry',
     'params': {
       'Hash': hash
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -306,13 +304,13 @@ function entry (hash) {
  * @method pendingEntries
  *
  */
-function pendingEntries () {
+Factomd.prototype.pendingEntries = function () {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'pending-entries',
     'params': {
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -324,14 +322,14 @@ function pendingEntries () {
  * @method transaction
  *
  */
-function transaction (hash) {
+Factomd.prototype.transaction = function (hash) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'transaction',
     'params': {
       'hash': hash
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -342,14 +340,14 @@ function transaction (hash) {
  * @param {String} chainid chain id
  *
  */
-function ack (hash, chainid) {
+Factomd.prototype.ack = function (hash, chainid) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'ack',
     'params': {
       'hash': hash, 'chainid': chainid, 'fulltransaction': ''
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -360,14 +358,14 @@ function ack (hash, chainid) {
  * @param {String} hash
  *
  */
-function receipt (hash) {
+Factomd.prototype.receipt = function (hash) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'receipt',
     'params': {
       'hash': hash
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -378,14 +376,14 @@ function receipt (hash) {
  * @param {String} address
  *
  */
-function pendingTransactions (address) {
+Factomd.prototype.pendingTransactions = function (address) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'pending-transactions',
     'params': {
       'Address': address
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -395,14 +393,14 @@ function pendingTransactions (address) {
  * @param {Number} chainID chain id
  *
  */
-function chainHead (chainID) {
+Factomd.prototype.chainHead = function (chainID) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'chain-head',
     'params': {
       'ChainID': chainID
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -411,14 +409,14 @@ function chainHead (chainID) {
  * @param {String} address entry credit address
  *
  */
-function entryCreditBalance (address) {
+Factomd.prototype.entryCreditBalance = function (address) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'entry-credit-balance',
     'params': {
       'address': address
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -428,14 +426,14 @@ function entryCreditBalance (address) {
  * @param {String} address factoid address
  *
  */
-function factoidBalance (address) {
+Factomd.prototype.factoidBalance = function (address) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-balance',
     'params': {
       'address': address
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -445,9 +443,9 @@ function factoidBalance (address) {
  * @method entryCreditRate
  *
  */
-function entryCreditRate () {
-  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'entry-credit-rate'}
-  return dispatch(jdata)
+Factomd.prototype.entryCreditRate = function () {
+  const jdata = {'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'entry-credit-rate'}
+  return this.dispatch(jdata)
 }
 
 /**
@@ -456,9 +454,9 @@ function entryCreditRate () {
  * @method properties
  *
  */
-function properties () {
-  const jdata = {'jsonrpc': '2.0', 'id': APICounter(), 'method': 'properties'}
-  return dispatch(jdata)
+Factomd.prototype.properties = function () {
+  const jdata = {'jsonrpc': '2.0', 'id': this.APICounter(), 'method': 'properties'}
+  return this.dispatch(jdata)
 }
 
 /**
@@ -469,14 +467,14 @@ function properties () {
  * @param {String} transaction hex encoded string
  *
  */
-function factoidSubmit (transaction) {
+Factomd.prototype.factoidSubmit = function (transaction) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'factoid-submit',
     'params': {
       'transaction': transaction
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -488,14 +486,14 @@ function factoidSubmit (transaction) {
  * @param {String} message hex encoded string
  *
  */
-function commitChain (message) {
+Factomd.prototype.commitChain = function (message) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'commit-chain',
     'params': {
       'message': message
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -507,14 +505,14 @@ function commitChain (message) {
  * @param {String} entry reveal chain hex encoded string
  *
  */
-function revealChain (entry) {
+Factomd.prototype.revealChain = function (entry) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'reveal-chain',
     'params': {
       'entry': entry
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -526,14 +524,14 @@ function revealChain (entry) {
  * @param {String} message hex encoded string for entry
  *
  */
-function commitEntry (message) {
+Factomd.prototype.commitEntry = function (message) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'commit-entry',
     'params': {
       'message': message
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -545,14 +543,14 @@ function commitEntry (message) {
  * @param {String} entry hex encoded string for reveal entry
  *
  */
-function revealEntry (entry) {
+Factomd.prototype.revealEntry = function (entry) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'reveal-entry',
     'params': {
       'entry': entry
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
 /**
@@ -563,48 +561,14 @@ function revealEntry (entry) {
  * @param {String} message raw hex encoded string
  *
  */
-function sendRawMessage (message) {
+Factomd.prototype.sendRawMessage = function (message) {
   const jdata = {'jsonrpc': '2.0',
-    'id': APICounter(),
+    'id': this.APICounter(),
     'method': 'send-raw-message',
     'params': {
       'message': message
     }}
-  return dispatch(jdata)
+  return this.dispatch(jdata)
 }
 
-module.exports = {
-  setTimeout,
-  getTimeout,
-  setFactomNode,
-  getUrl,
-  directoryBlock,
-  directoryBlockHead,
-  heights,
-  rawData,
-  dblockByHeight,
-  ablockByHeight,
-  ecblockByHeight,
-  fblockByHeight,
-  factoidBlock,
-  entryCreditBlock,
-  adminBlock,
-  entryBlock,
-  entry,
-  pendingEntries,
-  transaction,
-  ack,
-  receipt,
-  pendingTransactions,
-  chainHead,
-  entryCreditBalance,
-  factoidBalance,
-  entryCreditRate,
-  properties,
-  factoidSubmit,
-  commitChain,
-  revealChain,
-  commitEntry,
-  revealEntry,
-  sendRawMessage
-}
+module.exports.Factomd = Factomd
