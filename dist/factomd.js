@@ -7770,11 +7770,11 @@ Factomd.prototype.factoidBlock = function (keyMr) {
 /**
  * Retrieve a specified entrycredit block given its merkle root key.
  * The numbers are minute markers.
- * @method entryCreditBlock
+ * @method entrycreditBlock
  * @param {String} keyMr Merkle root key
  *
  */
-Factomd.prototype.entryCreditBlock = function (keyMR) {
+Factomd.prototype.entrycreditBlock = function (keyMR) {
   var jdata = { 'jsonrpc': '2.0',
     'id': this.APICounter(),
     'method': 'entrycredit-block',
