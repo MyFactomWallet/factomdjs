@@ -103,11 +103,11 @@ describe('factomd.factoidBlock', function () {
   })
 })
 
-describe('factomd.entryCreditBlock', function () {
-  it('should call factomd.entryCreditBlock', function (done) {
+describe('factomd.entrycreditBlock', function () {
+  it('should call factomd.entrycreditBlock', function (done) {
     assert.doesNotThrow(async function () {
       var keymr = '2050b16701f29238d6b99bcf3fb0ca55d6d884139601f06691fc370cda659d60'
-      var response = await factomd.entryCreditBlock(keymr)
+      var response = await factomd.entrycreditBlock(keymr)
       console.log(JSON.stringify(response))
       done()
     }, done)
